@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)file:///C:/Users/zubey/Downloads/pufu-yonetim-v2_8.html -->
+<html lang="tr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Pufu Yönetim — CEO Paneli</title>
+
+<!-- PWA -->
+<meta name="theme-color" content="#c0006a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Pufu Yönetim">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" id="pwa-manifest" href="blob:null/39985a56-35bb-403e-937f-75437b8d4996">
+<script>
+// PWA Manifest
+const manifest = {
+  name: "Pufu Yönetim Paneli",
+  short_name: "Pufu",
+  description: "Pufu Toys Yönetim Sistemi",
+  start_url: "/index.html",
+  display: "standalone",
+  background_color: "#fff0f6",
+  theme_color: "#c0006a",
+  orientation: "portrait",
+  icons: [
+    { src: "https://api.dicebear.com/7.x/initials/svg?seed=PT&backgroundColor=c0006a&textColor=ffffff&fontSize=40&size=192", sizes: "192x192", type: "image/svg+xml" },
+    { src: "https://api.dicebear.com/7.x/initials/svg?seed=PT&backgroundColor=c0006a&textColor=ffffff&fontSize=40&size=512", sizes: "512x512", type: "image/svg+xml" }
+  ]
+};
+const blob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
+document.getElementById('pwa-manifest').href = URL.createObjectURL(blob);
+
+// Service Worker
+if ('serviceWorker' in navigator) {
+  const swCode = `
+    self.addEventListener('install', e => self.skipWaiting());
+    self.addEventListener('activate', e => clients.claim());
+    self.addEventListener('fetch', e => e.respondWith(fetch(e.request).catch(() => caches.match(e.request))));
+  `;
+  const swBlob = new Blob([swCode], {type:'application/javascript'});
+  navigator.serviceWorker.register(URL.createObjectURL(swBlob));
+}
+</script>
+<link href="./index.html_files/css2" rel="stylesheet">
+<style>
+:root {
+  --bg: #fff0f6;
+  --surface: #ffffff;
+  --surface2: #ffe4f0;
+  --border: #f9c0d8;
+  --navy: #c0006a;
+  --blue: #a8005c;
+  --blue2: #e0007a;
+  --accent: #ff4da6;
+  --accent-light: #ffe0f0;
+  --text: #5a0030;
+  --muted: #b06080;
+  --danger: #ef4444;
+  --danger-light: #fee2e2;
+  --success: #4caf50;
+  --success-light: #e8f5e9;
+  --warning: #f59e0b;
+  --warning-light: #fef3c7;
+  --green: #44c043;
+  --green-light: #e6f9e6;
+  --white: #ffffff;
+  --shadow: 0 4px 24px rgba(200,0,100,0.10);
+  --shadow-sm: 0 2px 8px rgba(200,0,100,0.07);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── TOPBAR (mobile) ── */
+.topbar {
+  display: none;
+  background: #c0006a;
+  padding: 14px 20px;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky; top:0; z-index:200;
+}
+
+.topbar-logo { font-family:'Bebas Neue'; font-size:22px; color:#fff; letter-spacing:0.08em; }
+.topbar-menu { background:none; border:none; color:#fff; font-size:22px; cursor:pointer; padding:4px; }
+
+/* ── LAYOUT ── */
+.layout { display:flex; flex:1; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width:260px; min-height:100vh;
+  background: linear-gradient(180deg, #c0006a 0%, #e0007a 60%, #d4006f 100%);
+  display:flex; flex-direction:column;
+  position:fixed; top:0; left:0; bottom:0;
+  z-index:100;
+  transition: transform 0.3s ease;
+  box-shadow: 4px 0 24px rgba(200,0,100,0.18);
+}
+
+.sidebar-logo {
+  padding: 28px 24px 22px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.logo-mark {
+  font-family: 'Bebas Neue';
+  font-size: 30px;
+  color: #fff;
+  letter-spacing: 0.1em;
+  line-height: 1;
+}
+
+.logo-mark span { color: #7dde3c; }
+
+.logo-tagline {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.nav { padding: 20px 16px; flex:1; overflow-y:auto; }
+
+.nav-section { margin-bottom: 24px; }
+
+.nav-label {
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0 8px;
+  margin-bottom: 6px;
+}
+
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px; font-weight: 500;
+  color: rgba(255,255,255,0.55);
+  transition: all 0.18s;
+  margin-bottom: 2px;
+  position: relative;
+}
+
+.nav-item:hover { background: rgba(255,255,255,0.08); color: #fff; }
+.nav-item.active { background: #44c043; color: #fff; box-shadow: 0 4px 16px rgba(68,192,67,0.35); }
+
+.nav-icon { font-size: 17px; width: 22px; text-align:center; flex-shrink:0; }
+
+.nav-badge {
+  margin-left: auto;
+  background: var(--danger);
+  color: #fff;
+  font-size: 10px; font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 20px;
+  min-width: 20px; text-align:center;
+}
+
+.nav-item.active .nav-badge { background: rgba(255,255,255,0.25); }
+
+.sidebar-user {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; gap: 12px;
+}
+
+.avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: linear-gradient(135deg, #ff4da6, #c0006a);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 13px; color: #fff;
+  flex-shrink: 0;
+}
+
+.avatar-sm {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, #e0007a, #ff4da6);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 10px; color: #fff;
+  flex-shrink: 0;
+}
+
+.user-name { font-size: 13px; font-weight: 600; color: #fff; }
+.user-role { font-size: 11px; color: rgba(255,255,255,0.4); }
+
+/* ── MAIN ── */
+.main {
+  margin-left: 260px;
+  flex: 1; padding: 32px 36px;
+  max-width: 1300px; width: 100%;
+}
+
+/* ── PAGES ── */
+.page { display:none; animation: fadeUp 0.25s ease; }
+.page.active { display:block; }
+
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 28px; flex-wrap: wrap; gap: 12px;
+}
+
+.page-title { font-family:'Plus Jakarta Sans'; font-size:26px; font-weight:800; color:#c0006a; }
+.page-sub { font-size:13px; color:var(--muted); margin-top:3px; }
+
+/* ── BUTTONS ── */
+.btn {
+  padding: 10px 20px; border-radius: 10px; border: none;
+  cursor: pointer; font-family:'Plus Jakarta Sans'; font-size:14px; font-weight:600;
+  transition: all 0.18s; display:inline-flex; align-items:center; gap:6px;
+}
+
+.btn-primary { background: var(--blue2); color: #fff; box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+.btn-primary:hover { background: var(--blue); transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--muted); border: 1.5px solid var(--border); }
+.btn-ghost:hover { border-color: var(--blue2); color: var(--blue2); }
+.btn-sm { padding: 7px 14px; font-size: 12px; }
+.btn-danger { background: var(--danger-light); color: var(--danger); border: none; }
+
+/* ── STATS ── */
+.stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:28px; }
+
+.stat-card {
+  background: var(--surface); border-radius: 14px;
+  padding: 20px 22px; box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+
+.stat-icon {
+  width: 42px; height: 42px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; margin-bottom: 14px;
+}
+
+.stat-icon.blue { background: #ffe0f0; }
+.stat-icon.green { background: #e6f9e6; }
+.stat-icon.red { background: var(--danger-light); }
+.stat-icon.yellow { background: var(--warning-light); }
+
+.stat-label { font-size:12px; color:var(--muted); font-weight:500; text-transform:uppercase; letter-spacing:0.06em; }
+.stat-value { font-size:34px; font-weight:800; color:#c0006a; margin:4px 0 2px; font-family:'Bebas Neue'; letter-spacing:0.04em; }
+.stat-sub { font-size:12px; color:var(--muted); }
+
+/* ── CARDS ── */
+.card {
+  background: var(--surface); border-radius: 14px;
+  padding: 24px; box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border); margin-bottom: 20px;
+}
+
+.card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.card-title { font-size:16px; font-weight:700; color:#c0006a; }
+
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+
+/* ── TASK ITEMS ── */
+.task-item {
+  display:flex; align-items:center; gap:12px;
+  padding:13px 0; border-bottom:1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.task-item:last-child { border-bottom:none; }
+
+.task-check {
+  width:22px; height:22px; border-radius:7px;
+  border:2px solid var(--border); cursor:pointer;
+  flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  font-size:12px; transition:all 0.18s; color:#fff;
+}
+
+.task-check:hover { border-color:var(--blue2); }
+.task-check.done { background:var(--success); border-color:var(--success); }
+
+.task-body { flex:1; min-width:0; }
+.task-name { font-size:14px; font-weight:500; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.task-name.done { text-decoration:line-through; color:var(--muted); }
+.task-meta { font-size:12px; color:var(--muted); margin-top:2px; }
+
+.tag {
+  font-size:11px; font-weight:600; padding:3px 10px;
+  border-radius:20px; white-space:nowrap; flex-shrink:0;
+}
+
+.tag-high { background:var(--danger-light); color:var(--danger); }
+.tag-mid { background:var(--warning-light); color:var(--warning); }
+.tag-low { background:var(--success-light); color:var(--success); }
+.tag-done { background:var(--surface2); color:var(--muted); }
+.tag-pending { background:var(--warning-light); color:var(--warning); }
+.tag-approved { background:var(--success-light); color:var(--success); }
+.tag-rejected { background:var(--danger-light); color:var(--danger); }
+
+/* ── MEETINGS ── */
+.meeting-card {
+  border:1px solid var(--border); border-radius:12px;
+  padding:18px; margin-bottom:12px;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  cursor:pointer;
+}
+
+.meeting-card:hover { border-color:var(--blue2); box-shadow:0 2px 12px rgba(37,99,235,0.1); }
+.meeting-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.meeting-title-text { font-size:15px; font-weight:600; }
+.meeting-date-text { font-size:12px; color:var(--muted); }
+.meeting-note-text { font-size:13px; color:var(--muted); line-height:1.6; }
+.meeting-action-tag { font-size:12px; color:var(--blue2); font-weight:600; margin-top:8px; }
+
+/* ── NOTIFICATIONS ── */
+.notif-item {
+  display:flex; gap:14px; padding:14px 0;
+  border-bottom:1px solid var(--border); align-items:flex-start;
+}
+.notif-item:last-child { border-bottom:none; }
+.notif-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; margin-top:5px; }
+.notif-dot.unread { background:var(--blue2); }
+.notif-dot.read { background:var(--border); }
+.notif-body { flex:1; }
+.notif-text { font-size:14px; font-weight:500; }
+.notif-time { font-size:12px; color:var(--muted); margin-top:3px; }
+
+/* ── CALENDAR ── */
+.calendar-grid {
+  display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-top:12px;
+}
+
+.cal-header { font-size:11px; font-weight:700; color:var(--muted); text-align:center; padding:8px 0; text-transform:uppercase; letter-spacing:0.08em; }
+.cal-day {
+  aspect-ratio:1; border-radius:10px; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; cursor:pointer;
+  font-size:13px; font-weight:500; transition:all 0.15s;
+  position:relative;
+}
+
+.cal-day:hover { background:var(--accent-light); }
+.cal-day.today { background:var(--blue2); color:#fff; font-weight:700; }
+.cal-day.has-event::after { content:''; width:5px; height:5px; border-radius:50%; background:var(--warning); position:absolute; bottom:4px; }
+.cal-day.today.has-event::after { background:#fff; }
+.cal-day.empty { cursor:default; }
+.cal-day.other-month { color:var(--border); }
+
+/* ── APPROVAL ── */
+.approval-item {
+  border:1px solid var(--border); border-radius:12px;
+  padding:18px; margin-bottom:12px;
+}
+
+.approval-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.approval-title-text { font-size:15px; font-weight:600; }
+.approval-desc { font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:12px; }
+.approval-actions { display:flex; gap:8px; }
+
+/* ── MESSAGES ── */
+.msg-layout { display:grid; grid-template-columns:300px 1fr; gap:0; height:650px; border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+.msg-sidebar { border-right:1px solid var(--border); overflow-y:auto; display:flex; flex-direction:column; }
+.msg-search { padding:14px 12px 10px; border-bottom:1px solid var(--border); background:#c0006a; }
+.msg-search-title { font-size:12px; font-weight:700; color:rgba(255,255,255,0.6); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.1em; }
+.msg-search input { width:100%; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:8px 12px; font-size:13px; font-family:'Plus Jakarta Sans'; outline:none; color:#fff; }
+.msg-search input::placeholder { color:rgba(255,255,255,0.35); }
+.msg-contact { display:flex; align-items:center; gap:10px; padding:12px 14px; cursor:pointer; transition:background 0.15s; border-bottom:1px solid var(--border); position:relative; }
+.msg-contact:hover { background:var(--surface2); }
+.msg-contact.active { background:var(--accent-light); border-left:3px solid var(--blue2); }
+.msg-contact-info { flex:1; min-width:0; }
+.msg-contact-name { font-size:13px; font-weight:700; color:#c0006a; }
+.msg-contact-role-text { font-size:11px; color:var(--muted); margin-top:1px; }
+.msg-contact-preview { font-size:11px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:2px; }
+.msg-unread { background:var(--blue2); color:#fff; font-size:10px; font-weight:700; padding:2px 6px; border-radius:20px; min-width:18px; text-align:center; flex-shrink:0; }
+.msg-main { display:flex; flex-direction:column; background:var(--bg); }
+.msg-header { padding:14px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; background:var(--surface); }
+.msg-header-name { font-size:15px; font-weight:700; color:#c0006a; }
+.msg-header-role { font-size:12px; color:var(--muted); }
+.msg-body { flex:1; overflow-y:auto; padding:20px; display:flex; flex-direction:column; gap:10px; }
+.msg-bubble-wrap { display:flex; flex-direction:column; }
+.msg-bubble-wrap.mine { align-items:flex-end; }
+.msg-bubble-wrap.theirs { align-items:flex-start; }
+.msg-bubble { max-width:72%; padding:10px 14px; border-radius:14px; font-size:13px; line-height:1.6; }
+.msg-bubble.mine { background:var(--blue2); color:#fff; border-bottom-right-radius:4px; }
+.msg-bubble.theirs { background:var(--surface); color:var(--text); border-bottom-left-radius:4px; box-shadow:var(--shadow-sm); }
+.msg-bubble-time { font-size:10px; color:var(--muted); margin-top:3px; }
+.msg-input-bar { padding:12px 16px; border-top:1px solid var(--border); display:flex; gap:8px; align-items:center; background:var(--surface); }
+.msg-input { flex:1; background:var(--surface2); border:1.5px solid var(--border); border-radius:24px; padding:10px 18px; font-size:13px; font-family:'Plus Jakarta Sans'; outline:none; color:var(--text); transition:border-color 0.18s; }
+.msg-input:focus { border-color:var(--blue2); background:#fff; }
+.msg-send { background:var(--blue2); border:none; border-radius:50%; width:40px; height:40px; color:#fff; cursor:pointer; font-size:15px; transition:background 0.15s; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.msg-send:hover { background:var(--blue); }
+/* ── TEAM TABLE ── */
+.team-table { width:100%; border-collapse:collapse; }
+.team-table th { font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; padding:10px 14px; text-align:left; border-bottom:2px solid var(--border); background:var(--surface2); }
+.team-table td { padding:12px 14px; font-size:13px; border-bottom:1px solid var(--border); vertical-align:middle; }
+.team-table tr:last-child td { border-bottom:none; }
+.team-table tr:hover td { background:var(--surface2); }
+.ceo-badge { background:#c0006a; color:#fff; font-size:10px; font-weight:700; padding:3px 8px; border-radius:20px; }
+
+/* ── FILES ── */
+.file-item { display:flex; align-items:center; gap:14px; padding:14px; border:1px solid var(--border); border-radius:12px; margin-bottom:10px; transition:border-color 0.15s; }
+.file-item:hover { border-color:var(--blue2); }
+.file-icon { width:44px; height:44px; border-radius:10px; background:var(--accent-light); display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; }
+.file-info { flex:1; }
+.file-name { font-size:14px; font-weight:600; }
+.file-meta { font-size:12px; color:var(--muted); margin-top:2px; }
+.file-actions { display:flex; gap:6px; }
+
+/* ── PROGRESS ── */
+.progress-bar { height:7px; background:var(--surface2); border-radius:4px; overflow:hidden; margin-top:6px; }
+.progress-fill { height:100%; border-radius:4px; background:linear-gradient(90deg, #e0007a, #44c043); transition:width 0.8s ease; }
+
+/* ── PERSON ROW ── */
+.person-row { display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid var(--border); }
+.person-row:last-child { border-bottom:none; }
+.person-info { flex:1; }
+.person-name-text { font-size:14px; font-weight:600; }
+.person-role-text { font-size:12px; color:var(--muted); margin-top:2px; }
+
+/* ── FORM ── */
+.form-row { display:flex; gap:12px; margin-bottom:14px; flex-wrap:wrap; }
+.form-group { display:flex; flex-direction:column; gap:6px; flex:1; min-width:160px; }
+.form-label { font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; }
+.form-input, .form-select, .form-textarea {
+  background:var(--surface2); border:1.5px solid var(--border);
+  border-radius:10px; padding:10px 14px;
+  color:var(--text); font-family:'Plus Jakarta Sans'; font-size:14px;
+  outline:none; transition:border-color 0.18s; width:100%;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color:var(--blue2); background:#fff; }
+.form-textarea { resize:vertical; min-height:90px; }
+.form-select option { background:var(--surface); }
+
+/* ── MODAL ── */
+.modal-overlay {
+  position:fixed; inset:0; background:rgba(13,31,78,0.5);
+  display:none; align-items:center; justify-content:center;
+  z-index:1000; backdrop-filter:blur(6px); padding:20px;
+}
+.modal-overlay.open { display:flex; }
+.modal {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:18px; padding:32px;
+  width:520px; max-width:100%;
+  animation:modalIn 0.25s ease; max-height:90vh; overflow-y:auto;
+}
+@keyframes modalIn { from { opacity:0; transform:scale(0.96) translateY(10px); } to { opacity:1; transform:scale(1) translateY(0); } }
+.modal-title { font-size:20px; font-weight:800; color:var(--navy); margin-bottom:24px; }
+.modal-footer { display:flex; gap:10px; justify-content:flex-end; margin-top:24px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width:900px) {
+  .topbar { display:flex; }
+  .sidebar { transform:translateX(-100%); top:0; }
+  .sidebar.open { transform:translateX(0); }
+  .main { margin-left:0; padding:20px 16px; }
+  .stats-grid { grid-template-columns:repeat(2,1fr); }
+  .two-col, .three-col { grid-template-columns:1fr; }
+  .msg-layout { grid-template-columns:1fr; height:auto; }
+  .msg-sidebar { border-right:none; border-bottom:1px solid var(--border); max-height:220px; }
+}
+
+@media (max-width:480px) {
+  .stats-grid { grid-template-columns:1fr 1fr; gap:10px; }
+  .stat-value { font-size:28px; }
+  .page-title { font-size:22px; }
+  .main { padding:16px 12px; }
+}
+
+/* ── LOGIN ── */
+.login-screen {
+  position:fixed; inset:0; z-index:9999;
+  background: linear-gradient(135deg, #fff0f6 0%, #ffd6ea 50%, #e8f9e8 100%);
+  display:flex; align-items:center; justify-content:center; padding:20px;
+}
+
+.login-screen.hidden { display:none; }
+
+.login-box {
+  background:#fff; border-radius:24px;
+  padding:48px 40px; width:420px; max-width:100%;
+  box-shadow: 0 20px 60px rgba(192,0,106,0.15);
+  text-align:center; animation:modalIn 0.4s ease;
+}
+
+.login-logo {
+  font-family:'Bebas Neue'; font-size:42px; color:#c0006a;
+  letter-spacing:0.1em; line-height:1; margin-bottom:4px;
+}
+
+.login-logo span { color:#44c043; }
+.login-tagline { font-size:13px; color:#b06080; margin-bottom:32px; letter-spacing:0.06em; }
+
+.login-title { font-size:20px; font-weight:800; color:#c0006a; margin-bottom:24px; }
+
+.login-input-wrap { position:relative; margin-bottom:14px; text-align:left; }
+.login-label { font-size:11px; font-weight:700; color:#b06080; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:6px; display:block; }
+.login-input {
+  width:100%; background:#fff0f6; border:1.5px solid #f9c0d8;
+  border-radius:12px; padding:12px 16px; font-size:14px;
+  font-family:'Plus Jakarta Sans'; outline:none; color:#5a0030;
+  transition:border-color 0.18s;
+}
+.login-input:focus { border-color:#c0006a; background:#fff; }
+
+.login-btn {
+  width:100%; padding:14px; border-radius:12px; border:none;
+  background: linear-gradient(135deg, #c0006a, #e0007a);
+  color:#fff; font-family:'Plus Jakarta Sans'; font-size:15px; font-weight:700;
+  cursor:pointer; margin-top:8px; transition:all 0.2s;
+  box-shadow: 0 4px 16px rgba(192,0,106,0.3);
+}
+.login-btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(192,0,106,0.4); }
+
+.login-error {
+  background:#fee2e2; color:#ef4444; border-radius:8px;
+  padding:10px 14px; font-size:13px; margin-top:12px;
+  display:none; text-align:left;
+}
+.login-error.show { display:block; }
+
+.login-hint { font-size:12px; color:#b06080; margin-top:20px; line-height:1.6; }
+
+.role-badge-login {
+  display:inline-block; padding:3px 10px; border-radius:20px;
+  font-size:11px; font-weight:700; margin-top:16px;
+}
+</style>
+</head>
+<body>
+
+<!-- ══ LOGIN SCREEN ══ -->
+<div class="login-screen" id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">PUFU <span>TOYS</span></div>
+    <div class="login-tagline">YÖNETİM PANELİ</div>
+    <div class="login-title">Giriş Yap</div>
+
+    <div class="login-input-wrap">
+      <label class="login-label">Kullanıcı Adı</label>
+      <input class="login-input" id="login-user" placeholder="adsoyadbilesiği" onkeydown="if(event.key===&#39;Enter&#39;)document.getElementById(&#39;login-pass&#39;).focus()">
+    </div>
+    <div class="login-input-wrap">
+      <label class="login-label">Şifre</label>
+      <input class="login-input" id="login-pass" type="password" placeholder="••••••••" onkeydown="if(event.key===&#39;Enter&#39;)doLogin()">
+    </div>
+    <button class="login-btn" onclick="doLogin()">Giriş Yap →</button>
+    <div class="login-error" id="login-error">❌ Kullanıcı adı veya şifre hatalı!</div>
+  </div>
+</div>
+
+<!-- TOPBAR (mobile) -->
+<div class="topbar">
+  <div class="topbar-logo">PUFU <span style="color:var(--accent)">CEO</span></div>
+  <button class="topbar-menu" onclick="toggleSidebar()">☰</button>
+</div>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">PUFU <span>TOYS</span></div>
+    <div class="logo-tagline">CEO Yönetim Paneli</div>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-section">
+      <div class="nav-label">Genel</div>
+      <div class="nav-item active" onclick="showPage(&#39;dashboard&#39;,this)">
+        <span class="nav-icon">🏠</span> Dashboard
+      </div>
+      <div class="nav-item" onclick="showPage(&#39;tasks&#39;,this)">
+        <span class="nav-icon">✅</span> Görevler
+        <span class="nav-badge" id="badge-tasks">0</span>
+      </div>
+      <div class="nav-item" onclick="showPage(&#39;approvals&#39;,this)">
+        <span class="nav-icon">🔐</span> Onay Süreci
+        <span class="nav-badge" id="badge-approvals">0</span>
+      </div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">İletişim</div>
+      <div class="nav-item" onclick="showPage(&#39;messages&#39;,this)">
+        <span class="nav-icon">💬</span> Mesajlaşma
+        <span class="nav-badge" id="badge-messages">2</span>
+      </div>
+      <div class="nav-item" onclick="showPage(&#39;notifications&#39;,this)">
+        <span class="nav-icon">🔔</span> Bildirimler
+        <span class="nav-badge" id="badge-notifs">3</span>
+      </div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Yönetim</div>
+      <div class="nav-item" onclick="showPage(&#39;meetings&#39;,this)">
+        <span class="nav-icon">📝</span> Toplantılar
+      </div>
+      <div class="nav-item" onclick="showPage(&#39;calendar&#39;,this)">
+        <span class="nav-icon">📅</span> Takvim
+      </div>
+      <div class="nav-item" onclick="showPage(&#39;files&#39;,this)">
+        <span class="nav-icon">📁</span> Dosyalar
+      </div>
+      <div class="nav-item" onclick="showPage(&#39;reports&#39;,this)">
+        <span class="nav-icon">📊</span> Raporlar
+      </div>
+      <div class="nav-item" onclick="showPage(&#39;team&#39;,this)">
+        <span class="nav-icon">👥</span> Ekip
+      </div>
+    </div>
+  </nav>
+
+  <div class="sidebar-user">
+    <div class="avatar">ZÖ</div>
+    <div style="flex:1;min-width:0">
+      <div class="user-name">Zübeyir Oturakçı</div>
+      <div class="user-role">CEO · Pufu Toys</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <button onclick="openModal(&#39;password-modal&#39;)" title="Şifre Değiştir" style="background:rgba(255,255,255,0.15);border:none;border-radius:7px;width:28px;height:28px;color:#fff;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background 0.15s" onmouseover="this.style.background=&#39;rgba(255,255,255,0.3)&#39;" onmouseout="this.style.background=&#39;rgba(255,255,255,0.15)&#39;">🔑</button>
+      <button onclick="doLogout()" title="Çıkış Yap" style="background:rgba(255,255,255,0.15);border:none;border-radius:7px;width:28px;height:28px;color:#fff;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background 0.15s" onmouseover="this.style.background=&#39;rgba(255,255,255,0.3)&#39;" onmouseout="this.style.background=&#39;rgba(255,255,255,0.15)&#39;">🚪</button>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- ══ DASHBOARD ══ -->
+<div id="page-dashboard" class="page active">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Hoş Geldiniz 👋</div>
+      <div class="page-sub" id="today-date">10 Mart 2026 Salı</div>
+    </div>
+    <button class="btn btn-primary" onclick="openModal(&#39;task-modal&#39;)">＋ Yeni Görev</button>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon blue">✅</div>
+      <div class="stat-label">Toplam Görev</div>
+      <div class="stat-value" id="s-total">0</div>
+      <div class="stat-sub">Aktif görevler</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon green">🎯</div>
+      <div class="stat-label">Tamamlanan</div>
+      <div class="stat-value" id="s-done">0</div>
+      <div class="stat-sub">Bu ay</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon red">⚠️</div>
+      <div class="stat-label">Acil Bekleyen</div>
+      <div class="stat-value" id="s-urgent">0</div>
+      <div class="stat-sub">Yüksek öncelik</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon yellow">🔐</div>
+      <div class="stat-label">Onay Bekleyen</div>
+      <div class="stat-value" id="s-approval">0</div>
+      <div class="stat-sub">CEO onayı gerekli</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Son Görevler</div>
+        <span style="font-size:12px;color:var(--blue2);cursor:pointer;font-weight:600" onclick="showPage(&#39;tasks&#39;,document.querySelector(&#39;[onclick*=tasks]&#39;))">Tümü →</span>
+      </div>
+      <div id="dash-tasks"></div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Onay Bekleyenler</div>
+        <span style="font-size:12px;color:var(--blue2);cursor:pointer;font-weight:600" onclick="showPage(&#39;approvals&#39;,document.querySelector(&#39;[onclick*=approvals]&#39;))">Tümü →</span>
+      </div>
+      <div id="dash-approvals"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TASKS ══ -->
+<div id="page-tasks" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Görevler</div>
+      <div class="page-sub">Tüm görev atamaları ve takibi</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <select class="form-select btn-sm" style="width:auto" onchange="filterTasks(this.value)">
+        <option value="all">Tümü</option>
+        <option value="high">🔴 Acil</option>
+        <option value="mid">🟡 Orta</option>
+        <option value="low">🟢 Düşük</option>
+        <option value="pending">⏳ Bekleyen</option>
+      </select>
+      <button class="btn btn-primary" onclick="openModal(&#39;task-modal&#39;)">＋ Yeni Görev</button>
+    </div>
+  </div>
+  <div class="card">
+    <div id="task-list"></div>
+  </div>
+</div>
+
+<!-- ══ APPROVALS ══ -->
+<div id="page-approvals" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Onay Süreci</div>
+      <div class="page-sub">CEO onayı gerektiren talepler</div>
+    </div>
+    <button class="btn btn-primary" onclick="openModal(&#39;approval-modal&#39;)">＋ Talep Ekle</button>
+  </div>
+  <div id="approval-list"></div>
+</div>
+
+<!-- ══ MESSAGES ══ -->
+<div id="page-messages" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Mesajlaşma</div>
+      <div class="page-sub">Ekip üyeleriyle anlık iletişim</div>
+    </div>
+  </div>
+  <div class="card" style="padding:0">
+    <div class="msg-layout">
+      <div class="msg-sidebar">
+        <div class="msg-search">
+          <div class="msg-search-title">Ekip Üyeleri</div>
+          <input type="text" placeholder="🔍 Kişi ara..." oninput="filterContacts(this.value)">
+        </div>
+        <div id="msg-contacts"></div>
+      </div>
+      <div class="msg-main">
+        <div class="msg-header" id="msg-header">
+          <div class="avatar" id="msg-avatar" style="width:38px;height:38px;font-size:13px">HD</div>
+          <div style="flex:1">
+            <div class="msg-header-name" id="msg-contact-name">Halil Dumrul</div>
+            <div class="msg-header-role" id="msg-contact-role">İdari Müdür</div>
+          </div>
+        </div>
+        <div class="msg-body" id="msg-body"></div>
+        <div class="msg-input-bar">
+          <input class="msg-input" id="msg-input" placeholder="Mesaj yaz... (Enter ile gönder)" onkeydown="if(event.key===&#39;Enter&#39;)sendMessage()">
+          <button class="msg-send" onclick="sendMessage()">➤</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ NOTIFICATIONS ══ -->
+<div id="page-notifications" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Bildirimler</div>
+      <div class="page-sub">Görev güncellemeleri ve hatırlatmalar</div>
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="markAllRead()">Tümünü Okundu İşaretle</button>
+  </div>
+  <div class="card">
+    <div id="notif-list"></div>
+  </div>
+</div>
+
+<!-- ══ MEETINGS ══ -->
+<div id="page-meetings" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Toplantı Notları</div>
+      <div class="page-sub">Toplantı kayıtları ve çıkan görevler</div>
+    </div>
+    <button class="btn btn-primary" onclick="openModal(&#39;meeting-modal&#39;)">＋ Toplantı Ekle</button>
+  </div>
+  <div id="meeting-list"></div>
+</div>
+
+<!-- ══ CALENDAR ══ -->
+<div id="page-calendar" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Takvim</div>
+      <div class="page-sub">Görev ve toplantı takvimi</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="btn btn-ghost btn-sm" onclick="changeMonth(-1)">‹ Önceki</button>
+      <span id="cal-month-title" style="font-weight:700;font-size:15px;color:var(--navy)"></span>
+      <button class="btn btn-ghost btn-sm" onclick="changeMonth(1)">Sonraki ›</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="calendar-grid" id="cal-headers"></div>
+    <div class="calendar-grid" id="cal-days" style="margin-top:8px"></div>
+  </div>
+  <div class="card" id="cal-events-card">
+    <div class="card-title" style="margin-bottom:14px">📌 Seçili Gün Etkinlikleri</div>
+    <div id="cal-events-list" style="color:var(--muted);font-size:14px">Bir gün seçin</div>
+  </div>
+</div>
+
+<!-- ══ FILES ══ -->
+<div id="page-files" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Dosyalar</div>
+      <div class="page-sub">Paylaşılan belgeler ve ekler</div>
+    </div>
+    <button class="btn btn-primary" onclick="openModal(&#39;file-modal&#39;)">＋ Dosya Ekle</button>
+  </div>
+  <div class="card">
+    <div id="file-list"></div>
+  </div>
+</div>
+
+<!-- ══ REPORTS ══ -->
+<div id="page-reports" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">📊 CEO Raporları</div>
+      <div class="page-sub" style="display:flex;align-items:center;gap:6px">
+        <span class="ceo-badge">🔒 Sadece CEO</span>
+        <span>Ekip performansı ve görev takibi</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-bottom:20px">
+    <div class="card">
+      <div class="card-title" style="margin-bottom:20px">Görev Durumu Özeti</div>
+      <div id="report-status"></div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:20px">Kişi Bazlı Tamamlanma</div>
+      <div id="report-persons"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">👥 Ekip Görev Tablosu — Kim Ne Yapıyor?</div>
+      <select class="form-select" style="width:auto;padding:7px 12px;font-size:13px" onchange="filterReportTable(this.value)">
+        <option value="all">Tüm Görevler</option>
+        <option value="pending">⏳ Bekleyenler</option>
+        <option value="done">✅ Tamamlananlar</option>
+        <option value="high">🔴 Acil</option>
+      </select>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="team-table" id="report-table">
+        <thead>
+          <tr>
+            <th>Kişi</th>
+            <th>Unvan</th>
+            <th>Görev</th>
+            <th>Öncelik</th>
+            <th>Son Tarih</th>
+            <th>Durum</th>
+          </tr>
+        </thead>
+        <tbody id="report-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TEAM ══ -->
+<div id="page-team" class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Ekip</div>
+      <div class="page-sub">Yöneticiler ve personel</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-ghost" id="admin-pw-btn" onclick="openModal(&#39;admin-password-modal&#39;)" style="display:none">🔑 Şifre Sıfırla</button>
+      <button class="btn btn-primary" onclick="openModal(&#39;team-modal&#39;)">＋ Üye Ekle</button>
+    </div>
+  </div>
+  <div class="card">
+    <div id="team-list"></div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<!-- ══ MODALS ══ -->
+
+<!-- Task Modal -->
+<div class="modal-overlay" id="task-modal">
+  <div class="modal">
+    <div class="modal-title">✅ Yeni Görev Ata</div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label">Görev Başlığı</label>
+      <input class="form-input" id="t-title" placeholder="Görev açıklaması...">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Atanan Kişi</label>
+        <select class="form-select" id="t-person"></select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Öncelik</label>
+        <select class="form-select" id="t-priority">
+          <option value="high">🔴 Yüksek</option>
+          <option value="mid" selected="">🟡 Orta</option>
+          <option value="low">🟢 Düşük</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Son Tarih</label>
+        <input class="form-input" id="t-date" type="date">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Not</label>
+      <textarea class="form-textarea" id="t-note" placeholder="Ek açıklama..."></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal(&#39;task-modal&#39;)">İptal</button>
+      <button class="btn btn-primary" onclick="addTask()">Görevi Ata</button>
+    </div>
+  </div>
+</div>
+
+<!-- Meeting Modal -->
+<div class="modal-overlay" id="meeting-modal">
+  <div class="modal">
+    <div class="modal-title">📝 Toplantı Notu Ekle</div>
+    <div class="form-row">
+      <div class="form-group" style="flex:2">
+        <label class="form-label">Toplantı Başlığı</label>
+        <input class="form-input" id="m-title" placeholder="Toplantı konusu...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tarih</label>
+        <input class="form-input" id="m-date" type="date">
+      </div>
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label">Toplantı Notları</label>
+      <textarea class="form-textarea" id="m-note" placeholder="Kararlar, konuşmalar..." style="min-height:110px"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Çıkan Görevler</label>
+      <input class="form-input" id="m-tasks" placeholder="Stok raporu, Tedarikçi araştırması...">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal(&#39;meeting-modal&#39;)">İptal</button>
+      <button class="btn btn-primary" onclick="addMeeting()">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- Approval Modal -->
+<div class="modal-overlay" id="approval-modal">
+  <div class="modal">
+    <div class="modal-title">🔐 Onay Talebi Ekle</div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label">Talep Başlığı</label>
+      <input class="form-input" id="ap-title" placeholder="Talep konusu...">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Talep Eden</label>
+        <select class="form-select" id="ap-person"></select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Kategori</label>
+        <select class="form-select" id="ap-cat">
+          <option>Satın Alma</option>
+          <option>İzin</option>
+          <option>Bütçe</option>
+          <option>Üretim</option>
+          <option>Diğer</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Açıklama</label>
+      <textarea class="form-textarea" id="ap-desc" placeholder="Talep detayı..."></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal(&#39;approval-modal&#39;)">İptal</button>
+      <button class="btn btn-primary" onclick="addApproval()">Talep Ekle</button>
+    </div>
+  </div>
+</div>
+
+<!-- File Modal -->
+<div class="modal-overlay" id="file-modal">
+  <div class="modal">
+    <div class="modal-title">📁 Dosya Ekle</div>
+    <div class="form-row">
+      <div class="form-group" style="flex:2">
+        <label class="form-label">Dosya Adı</label>
+        <input class="form-input" id="fi-name" placeholder="Dosya adı...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tür</label>
+        <select class="form-select" id="fi-type">
+          <option value="📄">PDF</option>
+          <option value="📊">Excel</option>
+          <option value="📝">Word</option>
+          <option value="🖼️">Görsel</option>
+          <option value="📦">Diğer</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Açıklama</label>
+      <input class="form-input" id="fi-desc" placeholder="Kısa açıklama...">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal(&#39;file-modal&#39;)">İptal</button>
+      <button class="btn btn-primary" onclick="addFile()">Ekle</button>
+    </div>
+  </div>
+</div>
+
+<!-- Team Modal -->
+<div class="modal-overlay" id="team-modal">
+  <div class="modal">
+    <div class="modal-title">👥 Ekip Üyesi Ekle</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Ad Soyad</label>
+        <input class="form-input" id="tm-name" placeholder="İsim...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Unvan</label>
+        <input class="form-input" id="tm-role" placeholder="Müdür, Sorumlu...">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal(&#39;team-modal&#39;)">İptal</button>
+      <button class="btn btn-primary" onclick="addTeamMember()">Ekle</button>
+    </div>
+  </div>
+</div>
+
+<!-- Password Modal -->
+<div class="modal-overlay" id="password-modal">
+  <div class="modal" style="width:420px">
+    <div class="modal-title">🔑 Şifre Değiştir</div>
+    <div style="background:var(--accent-light);border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:13px;color:#c0006a">
+      <b id="pw-username-display"></b> hesabının şifresini değiştiriyorsunuz.
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label">Mevcut Şifre</label>
+      <input class="form-input" id="pw-current" type="password" placeholder="Mevcut şifreniz...">
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label">Yeni Şifre</label>
+      <input class="form-input" id="pw-new" type="password" placeholder="En az 6 karakter...">
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label">Yeni Şifre Tekrar</label>
+      <input class="form-input" id="pw-confirm" type="password" placeholder="Yeni şifrenizi tekrar girin...">
+    </div>
+    <div id="pw-error" style="background:#fee2e2;color:#ef4444;border-radius:8px;padding:10px 14px;font-size:13px;display:none;margin-bottom:12px"></div>
+    <div id="pw-success" style="background:#d1fae5;color:#059669;border-radius:8px;padding:10px 14px;font-size:13px;display:none;margin-bottom:12px"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal(&#39;password-modal&#39;);resetPwForm()">İptal</button>
+      <button class="btn btn-primary" onclick="changePassword()">Şifreyi Güncelle</button>
+    </div>
+  </div>
+</div>
+
+<!-- CEO: Başkasının Şifresini Değiştir Modal -->
+<div class="modal-overlay" id="admin-password-modal">
+  <div class="modal" style="width:420px">
+    <div class="modal-title">👑 Kullanıcı Şifresi Sıfırla</div>
+    <div style="background:var(--accent-light);border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:13px;color:#c0006a">
+      Sadece CEO başkasının şifresini sıfırlayabilir.
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label">Kullanıcı</label>
+      <select class="form-select" id="admin-pw-user"></select>
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label">Yeni Şifre</label>
+      <input class="form-input" id="admin-pw-new" type="password" placeholder="Yeni şifre...">
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label">Yeni Şifre Tekrar</label>
+      <input class="form-input" id="admin-pw-confirm" type="password" placeholder="Tekrar girin...">
+    </div>
+    <div id="admin-pw-error" style="background:#fee2e2;color:#ef4444;border-radius:8px;padding:10px 14px;font-size:13px;display:none;margin-bottom:12px"></div>
+    <div id="admin-pw-success" style="background:#d1fae5;color:#059669;border-radius:8px;padding:10px 14px;font-size:13px;display:none;margin-bottom:12px"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal(&#39;admin-password-modal&#39;)">İptal</button>
+      <button class="btn btn-primary" onclick="adminChangePassword()">Şifreyi Sıfırla</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══ SUPABASE BAĞLANTISI ══
+const SUPABASE_URL = 'https://nggykmtmibfoybpealys.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nZ3lrbXRtaWJmb3licGVhbHlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMDQ3MzIsImV4cCI6MjA4ODY4MDczMn0.e5fxSt_KUAesrbXMcqbK4TGGAjL0MNoy7CtJ1dMATBE';
+
+async function sb(table, method='GET', body=null, filters='') {
+  const url = `${SUPABASE_URL}/rest/v1/${table}${filters}`;
+  const res = await fetch(url, {
+    method,
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': method === 'POST' ? 'return=representation' : ''
+    },
+    body: body ? JSON.stringify(body) : null
+  });
+  if (!res.ok) { const e = await res.text(); console.error(e); return null; }
+  const text = await res.text();
+  return text ? JSON.parse(text) : [];
+}
+
+const DB = {
+  get:    (t, f='')      => sb(t, 'GET',    null, f),
+  post:   (t, b)         => sb(t, 'POST',   b),
+  patch:  (t, b, f)      => sb(t, 'PATCH',  b, f),
+  delete: (t, f)         => sb(t, 'DELETE', null, f),
+};
+
+// ══ YETKİLER ══
+const PAGE_PERMS = {
+  dashboard:'all', tasks:'all', approvals:'purchase',
+  messages:'all', notifications:'all', meetings:'all',
+  calendar:'all', files:'all', reports:'ceo', team:'all',
+};
+
+let currentUser = null;
+let tasks=[], meetings=[], approvals=[], team=[], files=[], notifications=[], msgData={};
+let activeContact='', taskFilter='all', reportFilter='all', contactFilter='';
+let calYear=2026, calMonth=2;
+
+// ══ GİRİŞ ══
+async function doLogin() {
+  const username = document.getElementById('login-user').value.trim().toLowerCase().replace(/\s/g,'');
+  const password = document.getElementById('login-pass').value;
+  const errEl = document.getElementById('login-error');
+  const btn = document.querySelector('.login-btn');
+
+  btn.textContent = 'Giriş yapılıyor...';
+  btn.disabled = true;
+
+  const users = await DB.get('kullanicilar', `?username=eq.${username}&pass=eq.${encodeURIComponent(password)}`);
+
+  btn.textContent = 'Giriş Yap →';
+  btn.disabled = false;
+
+  if (!users || users.length === 0) {
+    errEl.classList.add('show');
+    document.getElementById('login-pass').value = '';
+    return;
+  }
+
+  const user = users[0];
+  errEl.classList.remove('show');
+  currentUser = user;
+
+  document.getElementById('login-screen').classList.add('hidden');
+  document.querySelector('.user-name').textContent = user.name;
+  document.querySelector('.user-role').textContent = user.role + ' · Pufu Toys';
+  document.querySelector('.sidebar-user .avatar').textContent = user.initials;
+  document.getElementById('today-date').textContent = new Date().toLocaleDateString('tr-TR', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+  if (user.level === 'ceo') {
+    const adminBtn = document.getElementById('admin-pw-btn');
+    if (adminBtn) adminBtn.style.display = 'inline-flex';
+  }
+
+  applyPermissions();
+  await init();
+}
+
+function doLogout() {
+  if (!confirm('Çıkış yapmak istediğinize emin misiniz?')) return;
+  currentUser = null;
+  document.getElementById('login-screen').classList.remove('hidden');
+  document.getElementById('login-user').value = '';
+  document.getElementById('login-pass').value = '';
+  document.getElementById('login-error').classList.remove('show');
+}
+
+function canAccess(page) {
+  const perm = PAGE_PERMS[page] || 'all';
+  if (perm === 'all') return true;
+  if (perm === 'ceo') return currentUser.level === 'ceo';
+  if (perm === 'purchase') return currentUser.level === 'ceo' || currentUser.level === 'purchase_approver';
+  return false;
+}
+
+function applyPermissions() {
+  document.querySelectorAll('.nav-item').forEach(item => {
+    const onclick = item.getAttribute('onclick') || '';
+    const match = onclick.match(/showPage\('(\w+)'/);
+    if (match && !canAccess(match[1])) item.style.display = 'none';
+  });
+}
+
+function showPage(name, el) {
+  if (!canAccess(name)) { alert('⛔ Bu sayfaya erişim yetkiniz yok.'); return; }
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  if (el) el.classList.add('active');
+  if (name === 'calendar') renderCalendar();
+  if (name === 'messages') renderMessages();
+  if (window.innerWidth <= 900) closeSidebar();
+}
+
+// ══ INIT ══
+async function init() {
+  showLoading(true);
+  await loadAll();
+  showLoading(false);
+  populatePersonSelects();
+  renderAll();
+  renderCalendar();
+  renderMessages();
+}
+
+async function loadAll() {
+  const [t, m, a, tm, f, n, msgs] = await Promise.all([
+    DB.get('gorevler', '?order=created_at.desc'),
+    DB.get('toplantilar', '?order=created_at.desc'),
+    DB.get('onaylar', '?order=created_at.desc'),
+    DB.get('kullanicilar', '?order=name.asc'),
+    DB.get('dosyalar', '?order=created_at.desc'),
+    DB.get('bildirimler', '?order=created_at.desc'),
+    DB.get('mesajlar', '?order=created_at.asc'),
+  ]);
+
+  tasks        = (t  || []).map(r => ({ id:r.id, title:r.title, person:r.person, priority:r.priority, date:r.date, note:r.note, done:r.done }));
+  meetings     = (m  || []).map(r => ({ id:r.id, title:r.title, date:r.date, note:r.note, tasks:r.tasks }));
+  approvals    = (a  || []).map(r => ({ id:r.id, title:r.title, person:r.person, cat:r.cat, desc:r.description, status:r.status }));
+  team         = (tm || []).map(r => ({ id:r.id, name:r.name, role:r.role, initials:r.initials }));
+  files        = (f  || []).map(r => ({ id:r.id, name:r.name, type:r.type, desc:r.description, size:r.size, date:r.date }));
+  notifications= (n  || []).map(r => ({ id:r.id, text:r.text, time:r.time, read:r.is_read }));
+
+  // Mesajları kişi bazlı grupla
+  msgData = {};
+  team.filter(m => m.name !== currentUser.name).forEach(m => {
+    msgData[m.name] = { role:m.role, initials:m.initials, messages:[] };
+  });
+  (msgs || []).forEach(msg => {
+    const other = msg.from_user === currentUser.name ? msg.to_user : msg.from_user;
+    if (msgData[other]) {
+      msgData[other].messages.push({ from: msg.from_user === currentUser.name ? 'me' : 'them', text:msg.message, time:msg.time });
+    }
+  });
+
+  if (!activeContact && Object.keys(msgData).length > 0) activeContact = Object.keys(msgData)[0];
+}
+
+function showLoading(show) {
+  let el = document.getElementById('loading-overlay');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'loading-overlay';
+    el.style.cssText = 'position:fixed;inset:0;background:rgba(255,240,246,0.85);z-index:500;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#c0006a;gap:12px;backdrop-filter:blur(4px)';
+    el.innerHTML = '<div style="width:32px;height:32px;border:3px solid #f9c0d8;border-top-color:#c0006a;border-radius:50%;animation:spin 0.8s linear infinite"></div> Yükleniyor...';
+    document.body.appendChild(el);
+    const style = document.createElement('style');
+    style.textContent = '@keyframes spin{to{transform:rotate(360deg)}}';
+    document.head.appendChild(style);
+  }
+  el.style.display = show ? 'flex' : 'none';
+}
+
+function renderAll() {
+  updateStats();
+  renderTasks();
+  renderDashboard();
+  renderMeetings();
+  renderApprovals();
+  renderNotifications();
+  renderFiles();
+  renderReports();
+  renderTeam();
+}
+
+// ══ STATS ══
+function updateStats() {
+  document.getElementById('s-total').textContent = tasks.length;
+  document.getElementById('s-done').textContent = tasks.filter(t=>t.done).length;
+  document.getElementById('s-urgent').textContent = tasks.filter(t=>!t.done&&t.priority==='high').length;
+  document.getElementById('s-approval').textContent = approvals.filter(a=>a.status==='pending').length;
+  document.getElementById('badge-tasks').textContent = tasks.filter(t=>!t.done).length;
+  document.getElementById('badge-approvals').textContent = approvals.filter(a=>a.status==='pending').length;
+  document.getElementById('badge-notifs').textContent = notifications.filter(n=>!n.read).length;
+}
+
+// ══ TASKS ══
+function taskHTML(t, compact=false) {
+  const tagC = t.done?'tag-done':t.priority==='high'?'tag-high':t.priority==='mid'?'tag-mid':'tag-low';
+  const tagT = t.done?'Tamamlandı':t.priority==='high'?'Acil':t.priority==='mid'?'Orta':'Düşük';
+  const ini = t.person.split(' ').map(w=>w[0]).join('').slice(0,2);
+  return `<div class="task-item">
+    <div class="task-check ${t.done?'done':''}" onclick="toggleTask('${t.id}')">${t.done?'✓':''}</div>
+    <div class="task-body">
+      <div class="task-name ${t.done?'done':''}">${t.title}</div>
+      ${!compact?`<div class="task-meta">${t.person} · ${fmtDate(t.date)}</div>`:''}
+    </div>
+    <span class="tag ${tagC}">${tagT}</span>
+    <div class="avatar-sm">${ini}</div>
+  </div>`;
+}
+function renderTasks() {
+  const el = document.getElementById('task-list');
+  if (!el) return;
+  let filtered = tasks;
+  if (taskFilter==='pending') filtered=tasks.filter(t=>!t.done);
+  else if (taskFilter!=='all') filtered=tasks.filter(t=>t.priority===taskFilter);
+  el.innerHTML = filtered.length ? filtered.map(t=>taskHTML(t)).join('') : empty('Görev bulunamadı');
+}
+
+function renderDashboard() {
+  const dt = document.getElementById('dash-tasks');
+  if (dt) dt.innerHTML = tasks.slice(0,4).map(t=>taskHTML(t,true)).join('');
+  const da = document.getElementById('dash-approvals');
+  if (da) {
+    const pend = approvals.filter(a=>a.status==='pending');
+    da.innerHTML = pend.length ? pend.slice(0,3).map(a=>`
+      <div class="task-item">
+        <div class="task-body">
+          <div class="task-name">${a.title}</div>
+          <div class="task-meta">${a.person} · ${a.cat}</div>
+        </div>
+        <span class="tag tag-pending">Bekliyor</span>
+      </div>`).join('') : empty('Onay bekleyen yok');
+  }
+}
+
+function filterTasks(v) { taskFilter=v; renderTasks(); }
+
+async function toggleTask(id) {
+  const t = tasks.find(t=>t.id===id);
+  if (!t) return;
+  const newDone = !t.done;
+  await DB.patch('gorevler', { done: newDone }, `?id=eq.${id}`);
+  t.done = newDone;
+  renderAll();
+}
+
+async function addTask() {
+  const title = document.getElementById('t-title').value.trim();
+  const person = document.getElementById('t-person').value;
+  const priority = document.getElementById('t-priority').value;
+  const date = document.getElementById('t-date').value;
+  const note = document.getElementById('t-note').value;
+  if (!title||!person) return alert('Başlık ve kişi zorunlu!');
+  const res = await DB.post('gorevler', { title, person, priority, date:date||today(), note, done:false });
+  if (res && res[0]) {
+    const r = res[0];
+    tasks.unshift({ id:r.id, title:r.title, person:r.person, priority:r.priority, date:r.date, note:r.note, done:r.done });
+    await DB.post('bildirimler', { text:`Yeni görev: "${title}" → ${person}`, time:'Az önce', is_read:false });
+    notifications.unshift({ id:Date.now(), text:`Yeni görev: "${title}" → ${person}`, time:'Az önce', read:false });
+  }
+  closeModal('task-modal');
+  ['t-title','t-note'].forEach(id=>document.getElementById(id).value='');
+  renderAll();
+}
+
+function renderMeetings() {
+  const el = document.getElementById('meeting-list');
+  if (!el) return;
+  el.innerHTML = meetings.length ? meetings.map(m=>`
+    <div class="meeting-card">
+      <div class="meeting-top">
+        <span class="meeting-title-text">${m.title}</span>
+        <span class="meeting-date-text">📅 ${fmtDate(m.date)}</span>
+      </div>
+      <div class="meeting-note-text">${m.note}</div>
+      ${m.tasks?`<div class="meeting-action-tag">📌 ${m.tasks}</div>`:''}
+    </div>`).join('') : empty('Toplantı notu yok');
+}
+
+async function addMeeting() {
+  const title = document.getElementById('m-title').value.trim();
+  const date = document.getElementById('m-date').value;
+  const note = document.getElementById('m-note').value.trim();
+  const mt = document.getElementById('m-tasks').value.trim();
+  if (!title||!note) return alert('Başlık ve not zorunlu!');
+  const res = await DB.post('toplantilar', { title, date:date||today(), note, tasks:mt });
+  if (res && res[0]) {
+    const r = res[0];
+    meetings.unshift({ id:r.id, title:r.title, date:r.date, note:r.note, tasks:r.tasks });
+  }
+  closeModal('meeting-modal');
+  ['m-title','m-note','m-tasks'].forEach(id=>document.getElementById(id).value='');
+  renderAll();
+}
+
+function renderApprovals() {
+  const el = document.getElementById('approval-list');
+  if (!el) return;
+  el.innerHTML = approvals.length ? approvals.map(a=>`
+    <div class="approval-item">
+      <div class="approval-top">
+        <span class="approval-title-text">${a.title}</span>
+        <span class="tag ${a.status==='pending'?'tag-pending':a.status==='approved'?'tag-approved':'tag-rejected'}">
+          ${a.status==='pending'?'⏳ Bekliyor':a.status==='approved'?'✅ Onaylandı':'❌ Reddedildi'}
+        </span>
+      </div>
+      <div class="approval-desc">${a.desc}<br><small style="color:var(--muted)">📋 ${a.cat} · ${a.person}</small></div>
+      ${a.status==='pending'?`<div class="approval-actions">
+        <button class="btn btn-sm" style="background:var(--success-light);color:var(--success)" onclick="approveItem('${a.id}',true)">✅ Onayla</button>
+        <button class="btn btn-sm btn-danger" onclick="approveItem('${a.id}',false)">❌ Reddet</button>
+      </div>`:''}
+    </div>`).join('') : empty('Onay talebi yok');
+}
+
+async function approveItem(id, approved) {
+  const status = approved ? 'approved' : 'rejected';
+  await DB.patch('onaylar', { status }, `?id=eq.${id}`);
+  const a = approvals.find(x=>x.id===id);
+  if (a) {
+    a.status = status;
+    const txt = `"${a.title}" talebi ${approved?'onaylandı':'reddedildi'}`;
+    await DB.post('bildirimler', { text:txt, time:'Az önce', is_read:false });
+    notifications.unshift({ id:Date.now(), text:txt, time:'Az önce', read:false });
+  }
+  renderAll();
+}
+
+async function addApproval() {
+  const title = document.getElementById('ap-title').value.trim();
+  const person = document.getElementById('ap-person').value;
+  const cat = document.getElementById('ap-cat').value;
+  const desc = document.getElementById('ap-desc').value.trim();
+  if (!title) return alert('Başlık zorunlu!');
+  const res = await DB.post('onaylar', { title, person, cat, description:desc, status:'pending' });
+  if (res && res[0]) {
+    const r = res[0];
+    approvals.unshift({ id:r.id, title:r.title, person:r.person, cat:r.cat, desc:r.description, status:r.status });
+  }
+  closeModal('approval-modal');
+  ['ap-title','ap-desc'].forEach(id=>document.getElementById(id).value='');
+  renderAll();
+}
+
+function renderNotifications() {
+  const el = document.getElementById('notif-list');
+  if (!el) return;
+  el.innerHTML = notifications.map(n=>`
+    <div class="notif-item" onclick="readNotif('${n.id}')">
+      <div class="notif-dot ${n.read?'read':'unread'}"></div>
+      <div class="notif-body">
+        <div class="notif-text" style="${n.read?'color:var(--muted);font-weight:400':''}">${n.text}</div>
+        <div class="notif-time">${n.time}</div>
+      </div>
+    </div>`).join('') || empty('Bildirim yok');
+}
+
+async function readNotif(id) {
+  await DB.patch('bildirimler', { is_read:true }, `?id=eq.${id}`);
+  const n = notifications.find(x=>x.id===id);
+  if (n) n.read = true;
+  renderAll();
+}
+
+async function markAllRead() {
+  await DB.patch('bildirimler', { is_read:true }, '?is_read=eq.false');
+  notifications.forEach(n=>n.read=true);
+  renderAll();
+}
+
+function filterContacts(val) { contactFilter2=val.toLowerCase(); renderMessages(); }
+let contactFilter2='';
+
+function renderMessages() {
+  const contacts = document.getElementById('msg-contacts');
+  if (!contacts) return;
+  const filtered = Object.entries(msgData).filter(([name])=>name.toLowerCase().includes(contactFilter2||''));
+  contacts.innerHTML = filtered.map(([name,d])=>`
+    <div class="msg-contact ${name===activeContact?'active':''}" onclick="selectContact('${name}')">
+      <div class="avatar-sm" style="width:36px;height:36px;font-size:12px">${d.initials}</div>
+      <div class="msg-contact-info">
+        <div class="msg-contact-name">${name}</div>
+        <div class="msg-contact-role-text">${d.role}</div>
+        <div class="msg-contact-preview">${d.messages[d.messages.length-1]?.text||'Henüz mesaj yok'}</div>
+      </div>
+    </div>`).join('') || '<div style="padding:16px;color:var(--muted);font-size:13px;text-align:center">Kişi bulunamadı</div>';
+  renderChat();
+}
+
+function selectContact(name) { activeContact=name; renderMessages(); }
+
+function renderChat() {
+  const d = msgData[activeContact];
+  if (!d) return;
+  document.getElementById('msg-avatar').textContent = d.initials;
+  document.getElementById('msg-contact-name').textContent = activeContact;
+  document.getElementById('msg-contact-role').textContent = d.role;
+  const body = document.getElementById('msg-body');
+  body.innerHTML = d.messages.map(m=>`
+    <div class="msg-bubble-wrap ${m.from==='me'?'mine':'theirs'}">
+      <div class="msg-bubble ${m.from==='me'?'mine':'theirs'}">${m.text}</div>
+      <div class="msg-bubble-time">${m.time}</div>
+    </div>`).join('');
+  body.scrollTop = body.scrollHeight;
+}
+
+async function sendMessage() {
+  const input = document.getElementById('msg-input');
+  const text = input.value.trim();
+  if (!text||!activeContact) return;
+  const now = new Date();
+  const time = now.getHours()+':'+(now.getMinutes()+'').padStart(2,'0');
+  await DB.post('mesajlar', { from_user:currentUser.name, to_user:activeContact, message:text, time });
+  msgData[activeContact].messages.push({ from:'me', text, time });
+  input.value = '';
+  renderChat();
+  renderMessages();
+}
+
+function renderCalendar() {
+  const months = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+  document.getElementById('cal-month-title').textContent = `${months[calMonth]} ${calYear}`;
+  document.getElementById('cal-headers').innerHTML = ['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'].map(d=>`<div class="cal-header">${d}</div>`).join('');
+  const firstDay = new Date(calYear,calMonth,1).getDay();
+  const offset = firstDay===0?6:firstDay-1;
+  const daysInMonth = new Date(calYear,calMonth+1,0).getDate();
+  const todayD = new Date();
+  const eventDates = new Set([...tasks.map(t=>t.date),...meetings.map(m=>m.date)]);
+  let html='';
+  for(let i=0;i<offset;i++) html+='<div class="cal-day empty"></div>';
+  for(let d=1;d<=daysInMonth;d++){
+    const ds=`${calYear}-${(calMonth+1+'').padStart(2,'0')}-${(d+'').padStart(2,'0')}`;
+    const isToday=todayD.getFullYear()===calYear&&todayD.getMonth()===calMonth&&todayD.getDate()===d;
+    html+=`<div class="cal-day${isToday?' today':''}${eventDates.has(ds)?' has-event':''}" onclick="showCalEvents('${ds}')">${d}</div>`;
+  }
+  document.getElementById('cal-days').innerHTML=html;
+}
+
+function showCalEvents(ds) {
+  const el=document.getElementById('cal-events-list');
+  const dt=tasks.filter(t=>t.date===ds), dm=meetings.filter(m=>m.date===ds);
+  if(!dt.length&&!dm.length){el.innerHTML=`<span style="color:var(--muted)">${fmtDate(ds)} — Etkinlik yok</span>`;return;}
+  el.innerHTML=[...dt.map(t=>`<div>${taskHTML(t,true)}</div>`),...dm.map(m=>`<div style="padding:10px 0;border-bottom:1px solid var(--border)"><b>📝 ${m.title}</b><div style="font-size:12px;color:var(--muted);margin-top:3px">${m.note.slice(0,80)}...</div></div>`)].join('');
+}
+
+function changeMonth(dir){ calMonth+=dir; if(calMonth>11){calMonth=0;calYear++;}if(calMonth<0){calMonth=11;calYear--;}renderCalendar(); }
+
+function renderFiles() {
+  const el=document.getElementById('file-list');
+  if(!el)return;
+  el.innerHTML=files.length?files.map(f=>`
+    <div class="file-item">
+      <div class="file-icon">${f.type}</div>
+      <div class="file-info">
+        <div class="file-name">${f.name}</div>
+        <div class="file-meta">${f.desc} · ${f.size||''} · ${fmtDate(f.date)}</div>
+      </div>
+      <div class="file-actions"><button class="btn btn-ghost btn-sm">⬇ İndir</button></div>
+    </div>`).join(''):empty('Dosya yok');
+}
+
+async function addFile() {
+  const name=document.getElementById('fi-name').value.trim();
+  const type=document.getElementById('fi-type').value;
+  const desc=document.getElementById('fi-desc').value.trim();
+  if(!name)return alert('Dosya adı zorunlu!');
+  const res=await DB.post('dosyalar',{name,type,description:desc,date:today(),size:'—'});
+  if(res&&res[0]){const r=res[0];files.unshift({id:r.id,name:r.name,type:r.type,desc:r.description,size:r.size,date:r.date});}
+  closeModal('file-modal');
+  ['fi-name','fi-desc'].forEach(id=>document.getElementById(id).value='');
+  renderFiles();
+}
+
+function filterReportTable(v){reportFilter=v;renderReports();}
+
+function renderReports() {
+  const rs=document.getElementById('report-status');
+  if(!rs)return;
+  const total=tasks.length||1, done=tasks.filter(t=>t.done).length;
+  rs.innerHTML=[reportBar('Tamamlanan',done,total,'var(--success)'),reportBar('Bekleyen',tasks.filter(t=>!t.done).length,total,'var(--accent)'),reportBar('Acil',tasks.filter(t=>!t.done&&t.priority==='high').length,total,'var(--danger)')].join('');
+  const rp=document.getElementById('report-persons');
+  if(rp){
+    const pm={};
+    tasks.forEach(t=>{if(!pm[t.person])pm[t.person]={total:0,done:0};pm[t.person].total++;if(t.done)pm[t.person].done++;});
+    rp.innerHTML=Object.entries(pm).map(([name,s])=>{
+      const pct=s.total?Math.round((s.done/s.total)*100):0;
+      const ini=name.split(' ').map(w=>w[0]).join('').slice(0,2);
+      return`<div class="person-row"><div class="avatar-sm">${ini}</div><div class="person-info"><div class="person-name-text">${name}</div><div class="person-role-text">${s.done}/${s.total} · %${pct}</div><div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div></div></div>`;
+    }).join('')||empty('Veri yok');
+  }
+  const tbody=document.getElementById('report-table-body');
+  if(!tbody)return;
+  let filtered=tasks;
+  if(reportFilter==='pending')filtered=tasks.filter(t=>!t.done);
+  else if(reportFilter==='done')filtered=tasks.filter(t=>t.done);
+  else if(reportFilter==='high')filtered=tasks.filter(t=>t.priority==='high'&&!t.done);
+  if(!filtered.length){tbody.innerHTML=`<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px">Görev bulunamadı</td></tr>`;return;}
+  tbody.innerHTML=filtered.map(t=>{
+    const member=team.find(m=>m.name===t.person);
+    const ini=t.person.split(' ').map(w=>w[0]).join('').slice(0,2);
+    const tagC=t.done?'tag-done':t.priority==='high'?'tag-high':t.priority==='mid'?'tag-mid':'tag-low';
+    const tagT=t.done?'✅ Tamamlandı':t.priority==='high'?'🔴 Acil':t.priority==='mid'?'🟡 Orta':'🟢 Düşük';
+    return`<tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar-sm">${ini}</div><span style="font-weight:600">${t.person}</span></div></td><td style="color:var(--muted)">${member?.role||'—'}</td><td>${t.title}</td><td><span class="tag ${tagC}">${tagT}</span></td><td style="color:var(--muted)">${fmtDate(t.date)}</td><td><span class="tag ${t.done?'tag-approved':'tag-pending'}">${t.done?'Tamamlandı':'Devam Ediyor'}</span></td></tr>`;
+  }).join('');
+}
+
+function reportBar(label,val,total,color){
+  const pct=total?Math.round((val/total)*100):0;
+  return`<div style="margin-bottom:18px"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span style="font-weight:500">${label}</span><span style="color:var(--muted)">${val} · %${pct}</span></div><div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:${color}"></div></div></div>`;
+}
+
+function renderTeam() {
+  const el=document.getElementById('team-list');
+  if(!el)return;
+  el.innerHTML=team.map(m=>`
+    <div class="person-row">
+      <div class="avatar">${m.initials}</div>
+      <div class="person-info"><div class="person-name-text">${m.name}</div><div class="person-role-text">${m.role}</div></div>
+      <div style="font-size:12px;color:var(--muted)">${tasks.filter(t=>t.person===m.name).length} görev</div>
+    </div>`).join('');
+}
+
+async function addTeamMember() {
+  const name=document.getElementById('tm-name').value.trim();
+  const role=document.getElementById('tm-role').value.trim();
+  if(!name)return alert('İsim zorunlu!');
+  const initials=name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  const username=name.toLowerCase().replace(/\s/g,'').replace(/[çÇ]/g,'c').replace(/[şŞ]/g,'s').replace(/[ğĞ]/g,'g').replace(/[üÜ]/g,'u').replace(/[öÖ]/g,'o').replace(/[ıİ]/g,'i');
+  await DB.post('kullanicilar',{username,pass:'pufu2026',name,role,initials,level:'staff'});
+  team.push({id:Date.now(),name,role,initials});
+  msgData[name]={role,initials,messages:[]};
+  closeModal('team-modal');
+  ['tm-name','tm-role'].forEach(id=>document.getElementById(id).value='');
+  populatePersonSelects();
+  renderAll();
+}
+
+async function changePassword() {
+  const current=document.getElementById('pw-current').value;
+  const newPass=document.getElementById('pw-new').value;
+  const confirm=document.getElementById('pw-confirm').value;
+  const errEl=document.getElementById('pw-error'), sucEl=document.getElementById('pw-success');
+  errEl.style.display='none'; sucEl.style.display='none';
+  const check=await DB.get('kullanicilar',`?username=eq.${currentUser.username}&pass=eq.${encodeURIComponent(current)}`);
+  if(!check||check.length===0){errEl.textContent='❌ Mevcut şifre hatalı!';errEl.style.display='block';return;}
+  if(newPass.length<6){errEl.textContent='❌ En az 6 karakter!';errEl.style.display='block';return;}
+  if(newPass!==confirm){errEl.textContent='❌ Şifreler eşleşmiyor!';errEl.style.display='block';return;}
+  await DB.patch('kullanicilar',{pass:newPass},`?username=eq.${currentUser.username}`);
+  sucEl.textContent='✅ Şifre güncellendi!'; sucEl.style.display='block';
+  setTimeout(()=>{closeModal('password-modal');resetPwForm();},1500);
+}
+
+function resetPwForm(){
+  ['pw-current','pw-new','pw-confirm'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('pw-error').style.display='none';
+  document.getElementById('pw-success').style.display='none';
+}
+
+async function adminChangePassword() {
+  const username=document.getElementById('admin-pw-user').value;
+  const newPass=document.getElementById('admin-pw-new').value;
+  const confirm=document.getElementById('admin-pw-confirm').value;
+  const errEl=document.getElementById('admin-pw-error'), sucEl=document.getElementById('admin-pw-success');
+  errEl.style.display='none'; sucEl.style.display='none';
+  if(newPass.length<6){errEl.textContent='❌ En az 6 karakter!';errEl.style.display='block';return;}
+  if(newPass!==confirm){errEl.textContent='❌ Şifreler eşleşmiyor!';errEl.style.display='block';return;}
+  await DB.patch('kullanicilar',{pass:newPass},`?username=eq.${username}`);
+  sucEl.textContent='✅ Şifre güncellendi!'; sucEl.style.display='block';
+  setTimeout(()=>{closeModal('admin-password-modal');sucEl.style.display='none';},1500);
+}
+
+function openModal(id) {
+  if(id==='password-modal'&&currentUser){document.getElementById('pw-username-display').textContent=currentUser.name;resetPwForm();}
+  if(id==='admin-password-modal'){
+    const sel=document.getElementById('admin-pw-user');
+    sel.innerHTML=team.filter(m=>m.name!==currentUser.name).map(m=>`<option value="${m.name.toLowerCase().replace(/\s/g,'').replace(/[çÇ]/g,'c').replace(/[şŞ]/g,'s').replace(/[ğĞ]/g,'g').replace(/[üÜ]/g,'u').replace(/[öÖ]/g,'o').replace(/[ıİ]/g,'i')}">${m.name} (${m.role})</option>`).join('');
+  }
+  document.getElementById(id).classList.add('open');
+}
+
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+
+document.querySelectorAll('.modal-overlay').forEach(m=>{
+  m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');});
+});
+
+function populatePersonSelects() {
+  ['t-person','ap-person'].forEach(id=>{
+    const sel=document.getElementById(id);
+    if(sel) sel.innerHTML=team.map(m=>`<option value="${m.name}">${m.name}</option>`).join('');
+  });
+}
+
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');}
+function fmtDate(d){if(!d)return'—';return new Date(d+'T12:00').toLocaleDateString('tr-TR',{day:'numeric',month:'short',year:'numeric'});}
+function today(){return new Date().toISOString().split('T')[0];}
+function empty(msg){return`<div style="color:var(--muted);text-align:center;padding:24px;font-size:14px">${msg}</div>`;}
+
+window.onload=function(){
+  document.getElementById('today-date').textContent=new Date().toLocaleDateString('tr-TR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+};
+</script>
+
+
+</body></html>
