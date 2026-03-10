@@ -32,16 +32,8 @@ const manifest = {
 const blob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
 document.getElementById('pwa-manifest').href = URL.createObjectURL(blob);
 
-// Service Worker
-if ('serviceWorker' in navigator) {
-  const swCode = `
-    self.addEventListener('install', e => self.skipWaiting());
-    self.addEventListener('activate', e => clients.claim());
-    self.addEventListener('fetch', e => e.respondWith(fetch(e.request).catch(() => caches.match(e.request))));
-  `;
-  const swBlob = new Blob([swCode], {type:'application/javascript'});
-  navigator.serviceWorker.register(URL.createObjectURL(swBlob));
-}
+// Service Worker - GitHub Pages için devre dışı
+// if ('serviceWorker' in navigator) { ... }
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
@@ -1166,6 +1158,8 @@ function myTasks(taskList) {
   if (isManager()) return taskList;
   return taskList.filter(t => t.person === currentUser.name);
 }
+
+const PAGE_PERMS = {
   dashboard:'all', tasks:'all', approvals:'purchase',
   messages:'all', notifications:'all', meetings:'all',
   calendar:'all', files:'all', reports:'ceo', team:'all',
