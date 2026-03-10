@@ -1,7 +1,8 @@
-<!DOCTYPE html>
-<!-- saved from url=(0055)file:///C:/Users/zubey/Downloads/pufu-yonetim-v2_8.html -->
-<html lang="tr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Pufu Yönetim — CEO Paneli</title>
 
@@ -11,7 +12,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Pufu Yönetim">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" id="pwa-manifest" href="blob:null/39985a56-35bb-403e-937f-75437b8d4996">
+<link rel="manifest" id="pwa-manifest">
 <script>
 // PWA Manifest
 const manifest = {
@@ -42,7 +43,7 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register(URL.createObjectURL(swBlob));
 }
 </script>
-<link href="./index.html_files/css2" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #fff0f6;
@@ -552,11 +553,11 @@ body {
 
     <div class="login-input-wrap">
       <label class="login-label">Kullanıcı Adı</label>
-      <input class="login-input" id="login-user" placeholder="adsoyadbilesiği" onkeydown="if(event.key===&#39;Enter&#39;)document.getElementById(&#39;login-pass&#39;).focus()">
+      <input class="login-input" id="login-user" placeholder="adsoyadbilesiği" onkeydown="if(event.key==='Enter')document.getElementById('login-pass').focus()">
     </div>
     <div class="login-input-wrap">
       <label class="login-label">Şifre</label>
-      <input class="login-input" id="login-pass" type="password" placeholder="••••••••" onkeydown="if(event.key===&#39;Enter&#39;)doLogin()">
+      <input class="login-input" id="login-pass" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
     </div>
     <button class="login-btn" onclick="doLogin()">Giriş Yap →</button>
     <div class="login-error" id="login-error">❌ Kullanıcı adı veya şifre hatalı!</div>
@@ -581,44 +582,44 @@ body {
   <nav class="nav">
     <div class="nav-section">
       <div class="nav-label">Genel</div>
-      <div class="nav-item active" onclick="showPage(&#39;dashboard&#39;,this)">
+      <div class="nav-item active" onclick="showPage('dashboard',this)">
         <span class="nav-icon">🏠</span> Dashboard
       </div>
-      <div class="nav-item" onclick="showPage(&#39;tasks&#39;,this)">
+      <div class="nav-item" onclick="showPage('tasks',this)">
         <span class="nav-icon">✅</span> Görevler
         <span class="nav-badge" id="badge-tasks">0</span>
       </div>
-      <div class="nav-item" onclick="showPage(&#39;approvals&#39;,this)">
+      <div class="nav-item" onclick="showPage('approvals',this)">
         <span class="nav-icon">🔐</span> Onay Süreci
         <span class="nav-badge" id="badge-approvals">0</span>
       </div>
     </div>
     <div class="nav-section">
       <div class="nav-label">İletişim</div>
-      <div class="nav-item" onclick="showPage(&#39;messages&#39;,this)">
+      <div class="nav-item" onclick="showPage('messages',this)">
         <span class="nav-icon">💬</span> Mesajlaşma
         <span class="nav-badge" id="badge-messages">2</span>
       </div>
-      <div class="nav-item" onclick="showPage(&#39;notifications&#39;,this)">
+      <div class="nav-item" onclick="showPage('notifications',this)">
         <span class="nav-icon">🔔</span> Bildirimler
         <span class="nav-badge" id="badge-notifs">3</span>
       </div>
     </div>
     <div class="nav-section">
       <div class="nav-label">Yönetim</div>
-      <div class="nav-item" onclick="showPage(&#39;meetings&#39;,this)">
+      <div class="nav-item" onclick="showPage('meetings',this)">
         <span class="nav-icon">📝</span> Toplantılar
       </div>
-      <div class="nav-item" onclick="showPage(&#39;calendar&#39;,this)">
+      <div class="nav-item" onclick="showPage('calendar',this)">
         <span class="nav-icon">📅</span> Takvim
       </div>
-      <div class="nav-item" onclick="showPage(&#39;files&#39;,this)">
+      <div class="nav-item" onclick="showPage('files',this)">
         <span class="nav-icon">📁</span> Dosyalar
       </div>
-      <div class="nav-item" onclick="showPage(&#39;reports&#39;,this)">
+      <div class="nav-item" onclick="showPage('reports',this)">
         <span class="nav-icon">📊</span> Raporlar
       </div>
-      <div class="nav-item" onclick="showPage(&#39;team&#39;,this)">
+      <div class="nav-item" onclick="showPage('team',this)">
         <span class="nav-icon">👥</span> Ekip
       </div>
     </div>
@@ -631,8 +632,8 @@ body {
       <div class="user-role">CEO · Pufu Toys</div>
     </div>
     <div style="display:flex;flex-direction:column;gap:4px">
-      <button onclick="openModal(&#39;password-modal&#39;)" title="Şifre Değiştir" style="background:rgba(255,255,255,0.15);border:none;border-radius:7px;width:28px;height:28px;color:#fff;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background 0.15s" onmouseover="this.style.background=&#39;rgba(255,255,255,0.3)&#39;" onmouseout="this.style.background=&#39;rgba(255,255,255,0.15)&#39;">🔑</button>
-      <button onclick="doLogout()" title="Çıkış Yap" style="background:rgba(255,255,255,0.15);border:none;border-radius:7px;width:28px;height:28px;color:#fff;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background 0.15s" onmouseover="this.style.background=&#39;rgba(255,255,255,0.3)&#39;" onmouseout="this.style.background=&#39;rgba(255,255,255,0.15)&#39;">🚪</button>
+      <button onclick="openModal('password-modal')" title="Şifre Değiştir" style="background:rgba(255,255,255,0.15);border:none;border-radius:7px;width:28px;height:28px;color:#fff;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background 0.15s" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">🔑</button>
+      <button onclick="doLogout()" title="Çıkış Yap" style="background:rgba(255,255,255,0.15);border:none;border-radius:7px;width:28px;height:28px;color:#fff;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background 0.15s" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">🚪</button>
     </div>
   </div>
 </aside>
@@ -645,9 +646,9 @@ body {
   <div class="page-header">
     <div>
       <div class="page-title">Hoş Geldiniz 👋</div>
-      <div class="page-sub" id="today-date">10 Mart 2026 Salı</div>
+      <div class="page-sub" id="today-date"></div>
     </div>
-    <button class="btn btn-primary" onclick="openModal(&#39;task-modal&#39;)">＋ Yeni Görev</button>
+    <button class="btn btn-primary" id="dash-new-task-btn" onclick="openModal('task-modal')">＋ Yeni Görev</button>
   </div>
 
   <div class="stats-grid">
@@ -681,14 +682,14 @@ body {
     <div class="card">
       <div class="card-header">
         <div class="card-title">Son Görevler</div>
-        <span style="font-size:12px;color:var(--blue2);cursor:pointer;font-weight:600" onclick="showPage(&#39;tasks&#39;,document.querySelector(&#39;[onclick*=tasks]&#39;))">Tümü →</span>
+        <span style="font-size:12px;color:var(--blue2);cursor:pointer;font-weight:600" onclick="showPage('tasks',document.querySelector('[onclick*=tasks]'))">Tümü →</span>
       </div>
       <div id="dash-tasks"></div>
     </div>
     <div class="card">
       <div class="card-header">
         <div class="card-title">Onay Bekleyenler</div>
-        <span style="font-size:12px;color:var(--blue2);cursor:pointer;font-weight:600" onclick="showPage(&#39;approvals&#39;,document.querySelector(&#39;[onclick*=approvals]&#39;))">Tümü →</span>
+        <span style="font-size:12px;color:var(--blue2);cursor:pointer;font-weight:600" onclick="showPage('approvals',document.querySelector('[onclick*=approvals]'))">Tümü →</span>
       </div>
       <div id="dash-approvals"></div>
     </div>
@@ -710,7 +711,7 @@ body {
         <option value="low">🟢 Düşük</option>
         <option value="pending">⏳ Bekleyen</option>
       </select>
-      <button class="btn btn-primary" onclick="openModal(&#39;task-modal&#39;)">＋ Yeni Görev</button>
+      <button class="btn btn-primary" id="task-new-btn" onclick="openModal('task-modal')">＋ Yeni Görev</button>
     </div>
   </div>
   <div class="card">
@@ -725,7 +726,7 @@ body {
       <div class="page-title">Onay Süreci</div>
       <div class="page-sub">CEO onayı gerektiren talepler</div>
     </div>
-    <button class="btn btn-primary" onclick="openModal(&#39;approval-modal&#39;)">＋ Talep Ekle</button>
+    <button class="btn btn-primary" onclick="openModal('approval-modal')">＋ Talep Ekle</button>
   </div>
   <div id="approval-list"></div>
 </div>
@@ -757,7 +758,7 @@ body {
         </div>
         <div class="msg-body" id="msg-body"></div>
         <div class="msg-input-bar">
-          <input class="msg-input" id="msg-input" placeholder="Mesaj yaz... (Enter ile gönder)" onkeydown="if(event.key===&#39;Enter&#39;)sendMessage()">
+          <input class="msg-input" id="msg-input" placeholder="Mesaj yaz... (Enter ile gönder)" onkeydown="if(event.key==='Enter')sendMessage()">
           <button class="msg-send" onclick="sendMessage()">➤</button>
         </div>
       </div>
@@ -786,7 +787,7 @@ body {
       <div class="page-title">Toplantı Notları</div>
       <div class="page-sub">Toplantı kayıtları ve çıkan görevler</div>
     </div>
-    <button class="btn btn-primary" onclick="openModal(&#39;meeting-modal&#39;)">＋ Toplantı Ekle</button>
+    <button class="btn btn-primary" id="meeting-new-btn" onclick="openModal('meeting-modal')">＋ Toplantı Ekle</button>
   </div>
   <div id="meeting-list"></div>
 </div>
@@ -821,7 +822,7 @@ body {
       <div class="page-title">Dosyalar</div>
       <div class="page-sub">Paylaşılan belgeler ve ekler</div>
     </div>
-    <button class="btn btn-primary" onclick="openModal(&#39;file-modal&#39;)">＋ Dosya Ekle</button>
+    <button class="btn btn-primary" onclick="openModal('file-modal')">＋ Dosya Ekle</button>
   </div>
   <div class="card">
     <div id="file-list"></div>
@@ -887,8 +888,8 @@ body {
       <div class="page-sub">Yöneticiler ve personel</div>
     </div>
     <div style="display:flex;gap:8px">
-      <button class="btn btn-ghost" id="admin-pw-btn" onclick="openModal(&#39;admin-password-modal&#39;)" style="display:none">🔑 Şifre Sıfırla</button>
-      <button class="btn btn-primary" onclick="openModal(&#39;team-modal&#39;)">＋ Üye Ekle</button>
+      <button class="btn btn-ghost" id="admin-pw-btn" onclick="openModal('admin-password-modal')" style="display:none">🔑 Şifre Sıfırla</button>
+      <button class="btn btn-primary" onclick="openModal('team-modal')">＋ Üye Ekle</button>
     </div>
   </div>
   <div class="card">
@@ -918,7 +919,7 @@ body {
         <label class="form-label">Öncelik</label>
         <select class="form-select" id="t-priority">
           <option value="high">🔴 Yüksek</option>
-          <option value="mid" selected="">🟡 Orta</option>
+          <option value="mid" selected>🟡 Orta</option>
           <option value="low">🟢 Düşük</option>
         </select>
       </div>
@@ -932,7 +933,7 @@ body {
       <textarea class="form-textarea" id="t-note" placeholder="Ek açıklama..."></textarea>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal(&#39;task-modal&#39;)">İptal</button>
+      <button class="btn btn-ghost" onclick="closeModal('task-modal')">İptal</button>
       <button class="btn btn-primary" onclick="addTask()">Görevi Ata</button>
     </div>
   </div>
@@ -953,6 +954,10 @@ body {
       </div>
     </div>
     <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label">Katılımcılar <span style="color:var(--muted);font-size:11px">(birden fazla seçebilirsiniz)</span></label>
+      <div id="m-participants" style="display:flex;flex-wrap:wrap;gap:8px;padding:10px;background:var(--surface2);border-radius:10px;min-height:44px;max-height:120px;overflow-y:auto"></div>
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
       <label class="form-label">Toplantı Notları</label>
       <textarea class="form-textarea" id="m-note" placeholder="Kararlar, konuşmalar..." style="min-height:110px"></textarea>
     </div>
@@ -961,7 +966,7 @@ body {
       <input class="form-input" id="m-tasks" placeholder="Stok raporu, Tedarikçi araştırması...">
     </div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal(&#39;meeting-modal&#39;)">İptal</button>
+      <button class="btn btn-ghost" onclick="closeModal('meeting-modal')">İptal</button>
       <button class="btn btn-primary" onclick="addMeeting()">Kaydet</button>
     </div>
   </div>
@@ -996,7 +1001,7 @@ body {
       <textarea class="form-textarea" id="ap-desc" placeholder="Talep detayı..."></textarea>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal(&#39;approval-modal&#39;)">İptal</button>
+      <button class="btn btn-ghost" onclick="closeModal('approval-modal')">İptal</button>
       <button class="btn btn-primary" onclick="addApproval()">Talep Ekle</button>
     </div>
   </div>
@@ -1005,30 +1010,23 @@ body {
 <!-- File Modal -->
 <div class="modal-overlay" id="file-modal">
   <div class="modal">
-    <div class="modal-title">📁 Dosya Ekle</div>
-    <div class="form-row">
-      <div class="form-group" style="flex:2">
-        <label class="form-label">Dosya Adı</label>
-        <input class="form-input" id="fi-name" placeholder="Dosya adı...">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Tür</label>
-        <select class="form-select" id="fi-type">
-          <option value="📄">PDF</option>
-          <option value="📊">Excel</option>
-          <option value="📝">Word</option>
-          <option value="🖼️">Görsel</option>
-          <option value="📦">Diğer</option>
-        </select>
-      </div>
+    <div class="modal-title">📁 Dosya Yükle</div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label">Dosya Seç</label>
+      <input type="file" id="fi-file" accept=".pdf,.xlsx,.xls,.doc,.docx,.png,.jpg,.jpeg,.zip" style="width:100%;padding:10px;background:var(--surface2);border:2px dashed var(--border);border-radius:10px;font-size:13px;cursor:pointer" onchange="onFileSelected(this)">
     </div>
-    <div class="form-group">
+    <div class="form-group" style="margin-bottom:14px">
       <label class="form-label">Açıklama</label>
       <input class="form-input" id="fi-desc" placeholder="Kısa açıklama...">
     </div>
+    <div id="fi-progress" style="display:none;margin-bottom:12px">
+      <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Yükleniyor...</div>
+      <div class="progress-bar"><div class="progress-fill" id="fi-progress-bar" style="width:0%;transition:width 0.3s"></div></div>
+    </div>
+    <div id="fi-error" style="background:#fee2e2;color:#ef4444;border-radius:8px;padding:10px 14px;font-size:13px;display:none;margin-bottom:12px"></div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal(&#39;file-modal&#39;)">İptal</button>
-      <button class="btn btn-primary" onclick="addFile()">Ekle</button>
+      <button class="btn btn-ghost" onclick="closeModal('file-modal')">İptal</button>
+      <button class="btn btn-primary" id="fi-submit-btn" onclick="addFile()">Yükle</button>
     </div>
   </div>
 </div>
@@ -1048,8 +1046,28 @@ body {
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal(&#39;team-modal&#39;)">İptal</button>
+      <button class="btn btn-ghost" onclick="closeModal('team-modal')">İptal</button>
       <button class="btn btn-primary" onclick="addTeamMember()">Ekle</button>
+    </div>
+  </div>
+</div>
+
+<!-- Member Detail Modal -->
+<div class="modal-overlay" id="member-modal">
+  <div class="modal" style="width:520px">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
+      <div class="avatar" id="member-avatar" style="width:52px;height:52px;font-size:18px"></div>
+      <div>
+        <div id="member-name" style="font-size:18px;font-weight:700;color:var(--navy)"></div>
+        <div id="member-role-text" style="font-size:13px;color:var(--muted)"></div>
+      </div>
+    </div>
+    <div style="margin-bottom:16px">
+      <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:10px">📋 Görevler</div>
+      <div id="member-tasks" style="max-height:300px;overflow-y:auto"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('member-modal')">Kapat</button>
     </div>
   </div>
 </div>
@@ -1076,7 +1094,7 @@ body {
     <div id="pw-error" style="background:#fee2e2;color:#ef4444;border-radius:8px;padding:10px 14px;font-size:13px;display:none;margin-bottom:12px"></div>
     <div id="pw-success" style="background:#d1fae5;color:#059669;border-radius:8px;padding:10px 14px;font-size:13px;display:none;margin-bottom:12px"></div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal(&#39;password-modal&#39;);resetPwForm()">İptal</button>
+      <button class="btn btn-ghost" onclick="closeModal('password-modal');resetPwForm()">İptal</button>
       <button class="btn btn-primary" onclick="changePassword()">Şifreyi Güncelle</button>
     </div>
   </div>
@@ -1104,7 +1122,7 @@ body {
     <div id="admin-pw-error" style="background:#fee2e2;color:#ef4444;border-radius:8px;padding:10px 14px;font-size:13px;display:none;margin-bottom:12px"></div>
     <div id="admin-pw-success" style="background:#d1fae5;color:#059669;border-radius:8px;padding:10px 14px;font-size:13px;display:none;margin-bottom:12px"></div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal(&#39;admin-password-modal&#39;)">İptal</button>
+      <button class="btn btn-ghost" onclick="closeModal('admin-password-modal')">İptal</button>
       <button class="btn btn-primary" onclick="adminChangePassword()">Şifreyi Sıfırla</button>
     </div>
   </div>
@@ -1139,8 +1157,15 @@ const DB = {
   delete: (t, f)         => sb(t, 'DELETE', null, f),
 };
 
-// ══ YETKİLER ══
-const PAGE_PERMS = {
+// ══ YETKİ YARDIMCILARI ══
+function isManager() {
+  return currentUser && (currentUser.level === 'ceo' || currentUser.level === 'purchase_approver');
+}
+
+function myTasks(taskList) {
+  if (isManager()) return taskList;
+  return taskList.filter(t => t.person === currentUser.name);
+}
   dashboard:'all', tasks:'all', approvals:'purchase',
   messages:'all', notifications:'all', meetings:'all',
   calendar:'all', files:'all', reports:'ceo', team:'all',
@@ -1189,6 +1214,7 @@ async function doLogin() {
 
   applyPermissions();
   await init();
+  startRealtimeMessages();
 }
 
 function doLogout() {
@@ -1250,10 +1276,10 @@ async function loadAll() {
   ]);
 
   tasks        = (t  || []).map(r => ({ id:r.id, title:r.title, person:r.person, priority:r.priority, date:r.date, note:r.note, done:r.done }));
-  meetings     = (m  || []).map(r => ({ id:r.id, title:r.title, date:r.date, note:r.note, tasks:r.tasks }));
+  meetings     = (m  || []).map(r => ({ id:r.id, title:r.title, date:r.date, note:r.note, tasks:r.tasks, participants:r.participants||'' }));
   approvals    = (a  || []).map(r => ({ id:r.id, title:r.title, person:r.person, cat:r.cat, desc:r.description, status:r.status }));
   team         = (tm || []).map(r => ({ id:r.id, name:r.name, role:r.role, initials:r.initials }));
-  files        = (f  || []).map(r => ({ id:r.id, name:r.name, type:r.type, desc:r.description, size:r.size, date:r.date }));
+  files        = (f  || []).map(r => ({ id:r.id, name:r.name, type:r.type, desc:r.description, size:r.size, date:r.date, file_url:r.file_url||'' }));
   notifications= (n  || []).map(r => ({ id:r.id, text:r.text, time:r.time, read:r.is_read }));
 
   // Mesajları kişi bazlı grupla
@@ -1300,13 +1326,21 @@ function renderAll() {
 
 // ══ STATS ══
 function updateStats() {
-  document.getElementById('s-total').textContent = tasks.length;
-  document.getElementById('s-done').textContent = tasks.filter(t=>t.done).length;
-  document.getElementById('s-urgent').textContent = tasks.filter(t=>!t.done&&t.priority==='high').length;
+  const myT = myTasks(tasks);
+  document.getElementById('s-total').textContent = myT.length;
+  document.getElementById('s-done').textContent = myT.filter(t=>t.done).length;
+  document.getElementById('s-urgent').textContent = myT.filter(t=>!t.done&&t.priority==='high').length;
   document.getElementById('s-approval').textContent = approvals.filter(a=>a.status==='pending').length;
-  document.getElementById('badge-tasks').textContent = tasks.filter(t=>!t.done).length;
+  document.getElementById('badge-tasks').textContent = myT.filter(t=>!t.done).length;
   document.getElementById('badge-approvals').textContent = approvals.filter(a=>a.status==='pending').length;
   document.getElementById('badge-notifs').textContent = notifications.filter(n=>!n.read).length;
+
+  // Görev butonu: staff sadece kendine atayabilir
+  const newTaskBtns = ['dash-new-task-btn','task-new-btn'];
+  newTaskBtns.forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) btn.style.display = 'inline-flex';
+  });
 }
 
 // ══ TASKS ══
@@ -1327,15 +1361,15 @@ function taskHTML(t, compact=false) {
 function renderTasks() {
   const el = document.getElementById('task-list');
   if (!el) return;
-  let filtered = tasks;
-  if (taskFilter==='pending') filtered=tasks.filter(t=>!t.done);
-  else if (taskFilter!=='all') filtered=tasks.filter(t=>t.priority===taskFilter);
+  let filtered = myTasks(tasks);
+  if (taskFilter==='pending') filtered=filtered.filter(t=>!t.done);
+  else if (taskFilter!=='all') filtered=filtered.filter(t=>t.priority===taskFilter);
   el.innerHTML = filtered.length ? filtered.map(t=>taskHTML(t)).join('') : empty('Görev bulunamadı');
 }
 
 function renderDashboard() {
   const dt = document.getElementById('dash-tasks');
-  if (dt) dt.innerHTML = tasks.slice(0,4).map(t=>taskHTML(t,true)).join('');
+  if (dt) dt.innerHTML = myTasks(tasks).slice(0,4).map(t=>taskHTML(t,true)).join('');
   const da = document.getElementById('dash-approvals');
   if (da) {
     const pend = approvals.filter(a=>a.status==='pending');
@@ -1363,11 +1397,12 @@ async function toggleTask(id) {
 
 async function addTask() {
   const title = document.getElementById('t-title').value.trim();
-  const person = document.getElementById('t-person').value;
+  const person = isManager() ? document.getElementById('t-person').value : currentUser.name;
   const priority = document.getElementById('t-priority').value;
   const date = document.getElementById('t-date').value;
   const note = document.getElementById('t-note').value;
-  if (!title||!person) return alert('Başlık ve kişi zorunlu!');
+  if (!title) return alert('Başlık zorunlu!');
+
   const res = await DB.post('gorevler', { title, person, priority, date:date||today(), note, done:false });
   if (res && res[0]) {
     const r = res[0];
@@ -1383,15 +1418,22 @@ async function addTask() {
 function renderMeetings() {
   const el = document.getElementById('meeting-list');
   if (!el) return;
-  el.innerHTML = meetings.length ? meetings.map(m=>`
+  // Kullanıcı sadece katıldığı toplantıları görür (CEO+müdür hepsini)
+  const myMeetings = isManager() ? meetings : meetings.filter(m => {
+    if (!m.participants) return false;
+    const parts = m.participants.split(',').map(p=>p.trim());
+    return parts.includes(currentUser.name);
+  });
+  el.innerHTML = myMeetings.length ? myMeetings.map(m=>`
     <div class="meeting-card">
       <div class="meeting-top">
         <span class="meeting-title-text">${m.title}</span>
         <span class="meeting-date-text">📅 ${fmtDate(m.date)}</span>
       </div>
+      ${m.participants?`<div style="font-size:12px;color:var(--muted);margin-bottom:6px">👥 ${m.participants}</div>`:''}
       <div class="meeting-note-text">${m.note}</div>
       ${m.tasks?`<div class="meeting-action-tag">📌 ${m.tasks}</div>`:''}
-    </div>`).join('') : empty('Toplantı notu yok');
+    </div>`).join('') : empty('Katıldığınız toplantı bulunamadı');
 }
 
 async function addMeeting() {
@@ -1400,10 +1442,15 @@ async function addMeeting() {
   const note = document.getElementById('m-note').value.trim();
   const mt = document.getElementById('m-tasks').value.trim();
   if (!title||!note) return alert('Başlık ve not zorunlu!');
-  const res = await DB.post('toplantilar', { title, date:date||today(), note, tasks:mt });
+
+  // Seçili katılımcıları al
+  const selected = [...document.querySelectorAll('#m-participants input[type=checkbox]:checked')].map(cb=>cb.value);
+  const participants = selected.join(', ');
+
+  const res = await DB.post('toplantilar', { title, date:date||today(), note, tasks:mt, participants });
   if (res && res[0]) {
     const r = res[0];
-    meetings.unshift({ id:r.id, title:r.title, date:r.date, note:r.note, tasks:r.tasks });
+    meetings.unshift({ id:r.id, title:r.title, date:r.date, note:r.note, tasks:r.tasks, participants:r.participants });
   }
   closeModal('meeting-modal');
   ['m-title','m-note','m-tasks'].forEach(id=>document.getElementById(id).value='');
@@ -1566,25 +1613,100 @@ function renderFiles() {
   if(!el)return;
   el.innerHTML=files.length?files.map(f=>`
     <div class="file-item">
-      <div class="file-icon">${f.type}</div>
+      <div class="file-icon">${f.type||'📎'}</div>
       <div class="file-info">
         <div class="file-name">${f.name}</div>
         <div class="file-meta">${f.desc} · ${f.size||''} · ${fmtDate(f.date)}</div>
       </div>
-      <div class="file-actions"><button class="btn btn-ghost btn-sm">⬇ İndir</button></div>
+      <div class="file-actions">
+        ${f.file_url?`<a href="${f.file_url}" target="_blank" download="${f.name}" class="btn btn-ghost btn-sm" style="text-decoration:none">⬇ İndir</a>`:`<button class="btn btn-ghost btn-sm" disabled style="opacity:0.4">⬇ İndir</button>`}
+      </div>
     </div>`).join(''):empty('Dosya yok');
 }
 
+function onFileSelected(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const desc = document.getElementById('fi-desc');
+  if (!desc.value) desc.placeholder = file.name;
+}
+
+function getFileIcon(name) {
+  const ext = name.split('.').pop().toLowerCase();
+  if (['pdf'].includes(ext)) return '📄';
+  if (['xlsx','xls','csv'].includes(ext)) return '📊';
+  if (['doc','docx'].includes(ext)) return '📝';
+  if (['png','jpg','jpeg','gif','webp'].includes(ext)) return '🖼️';
+  if (['zip','rar'].includes(ext)) return '📦';
+  return '📎';
+}
+
+function formatBytes(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB';
+  return (bytes/(1024*1024)).toFixed(1) + ' MB';
+}
+
 async function addFile() {
-  const name=document.getElementById('fi-name').value.trim();
-  const type=document.getElementById('fi-type').value;
-  const desc=document.getElementById('fi-desc').value.trim();
-  if(!name)return alert('Dosya adı zorunlu!');
-  const res=await DB.post('dosyalar',{name,type,description:desc,date:today(),size:'—'});
-  if(res&&res[0]){const r=res[0];files.unshift({id:r.id,name:r.name,type:r.type,desc:r.description,size:r.size,date:r.date});}
-  closeModal('file-modal');
-  ['fi-name','fi-desc'].forEach(id=>document.getElementById(id).value='');
-  renderFiles();
+  const fileInput = document.getElementById('fi-file');
+  const desc = document.getElementById('fi-desc').value.trim();
+  const errEl = document.getElementById('fi-error');
+  const progressEl = document.getElementById('fi-progress');
+  const progressBar = document.getElementById('fi-progress-bar');
+  const submitBtn = document.getElementById('fi-submit-btn');
+  errEl.style.display = 'none';
+
+  if (!fileInput.files[0]) { errEl.textContent='❌ Lütfen bir dosya seçin!'; errEl.style.display='block'; return; }
+  const file = fileInput.files[0];
+  if (file.size > 5*1024*1024) { errEl.textContent='❌ Dosya 5MB\'dan büyük olamaz!'; errEl.style.display='block'; return; }
+
+  submitBtn.disabled = true;
+  progressEl.style.display = 'block';
+  progressBar.style.width = '30%';
+
+  // Supabase Storage'a yükle
+  const fileName = `${Date.now()}_${file.name}`;
+  const uploadRes = await fetch(`${SUPABASE_URL}/storage/v1/object/dosyalar/${fileName}`, {
+    method: 'POST',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': file.type,
+      'x-upsert': 'true'
+    },
+    body: file
+  });
+
+  progressBar.style.width = '70%';
+
+  if (!uploadRes.ok) {
+    // Storage bucket yoksa sadece metadata kaydet
+    const type = getFileIcon(file.name);
+    const res = await DB.post('dosyalar', { name:file.name, type, description:desc||file.name, date:today(), size:formatBytes(file.size), file_url:'', file_size:file.size });
+    if (res && res[0]) {
+      const r=res[0];
+      files.unshift({id:r.id,name:r.name,type:r.type,desc:r.description,size:r.size,date:r.date,file_url:''});
+    }
+  } else {
+    const fileUrl = `${SUPABASE_URL}/storage/v1/object/public/dosyalar/${fileName}`;
+    const type = getFileIcon(file.name);
+    const res = await DB.post('dosyalar', { name:file.name, type, description:desc||file.name, date:today(), size:formatBytes(file.size), file_url:fileUrl, file_size:file.size });
+    if (res && res[0]) {
+      const r=res[0];
+      files.unshift({id:r.id,name:r.name,type:r.type,desc:r.description,size:r.size,date:r.date,file_url:r.file_url});
+    }
+  }
+
+  progressBar.style.width = '100%';
+  setTimeout(() => {
+    progressEl.style.display = 'none';
+    progressBar.style.width = '0%';
+    submitBtn.disabled = false;
+    closeModal('file-modal');
+    fileInput.value = '';
+    document.getElementById('fi-desc').value = '';
+    renderFiles();
+  }, 500);
 }
 
 function filterReportTable(v){reportFilter=v;renderReports();}
@@ -1592,12 +1714,13 @@ function filterReportTable(v){reportFilter=v;renderReports();}
 function renderReports() {
   const rs=document.getElementById('report-status');
   if(!rs)return;
-  const total=tasks.length||1, done=tasks.filter(t=>t.done).length;
-  rs.innerHTML=[reportBar('Tamamlanan',done,total,'var(--success)'),reportBar('Bekleyen',tasks.filter(t=>!t.done).length,total,'var(--accent)'),reportBar('Acil',tasks.filter(t=>!t.done&&t.priority==='high').length,total,'var(--danger)')].join('');
+  const allTasks = myTasks(tasks);
+  const total=allTasks.length||1, done=allTasks.filter(t=>t.done).length;
+  rs.innerHTML=[reportBar('Tamamlanan',done,total,'var(--success)'),reportBar('Bekleyen',allTasks.filter(t=>!t.done).length,total,'var(--accent)'),reportBar('Acil',allTasks.filter(t=>!t.done&&t.priority==='high').length,total,'var(--danger)')].join('');
   const rp=document.getElementById('report-persons');
   if(rp){
     const pm={};
-    tasks.forEach(t=>{if(!pm[t.person])pm[t.person]={total:0,done:0};pm[t.person].total++;if(t.done)pm[t.person].done++;});
+    allTasks.forEach(t=>{if(!pm[t.person])pm[t.person]={total:0,done:0};pm[t.person].total++;if(t.done)pm[t.person].done++;});
     rp.innerHTML=Object.entries(pm).map(([name,s])=>{
       const pct=s.total?Math.round((s.done/s.total)*100):0;
       const ini=name.split(' ').map(w=>w[0]).join('').slice(0,2);
@@ -1606,10 +1729,10 @@ function renderReports() {
   }
   const tbody=document.getElementById('report-table-body');
   if(!tbody)return;
-  let filtered=tasks;
-  if(reportFilter==='pending')filtered=tasks.filter(t=>!t.done);
-  else if(reportFilter==='done')filtered=tasks.filter(t=>t.done);
-  else if(reportFilter==='high')filtered=tasks.filter(t=>t.priority==='high'&&!t.done);
+  let filtered=allTasks;
+  if(reportFilter==='pending')filtered=allTasks.filter(t=>!t.done);
+  else if(reportFilter==='done')filtered=allTasks.filter(t=>t.done);
+  else if(reportFilter==='high')filtered=allTasks.filter(t=>t.priority==='high'&&!t.done);
   if(!filtered.length){tbody.innerHTML=`<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px">Görev bulunamadı</td></tr>`;return;}
   tbody.innerHTML=filtered.map(t=>{
     const member=team.find(m=>m.name===t.person);
@@ -1629,11 +1752,34 @@ function renderTeam() {
   const el=document.getElementById('team-list');
   if(!el)return;
   el.innerHTML=team.map(m=>`
-    <div class="person-row">
+    <div class="person-row" style="${isManager()?'cursor:pointer;transition:background 0.15s':''}}"
+      ${isManager()?`onclick="openMemberDetail('${m.name}')" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background=''"`:''}>
       <div class="avatar">${m.initials}</div>
-      <div class="person-info"><div class="person-name-text">${m.name}</div><div class="person-role-text">${m.role}</div></div>
-      <div style="font-size:12px;color:var(--muted)">${tasks.filter(t=>t.person===m.name).length} görev</div>
+      <div class="person-info">
+        <div class="person-name-text">${m.name}</div>
+        <div class="person-role-text">${m.role}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="font-size:12px;color:var(--muted)">${tasks.filter(t=>t.person===m.name).length} görev</div>
+        ${isManager()?'<span style="color:var(--accent);font-size:12px">→</span>':''}
+      </div>
     </div>`).join('');
+}
+
+function openMemberDetail(name) {
+  const m = team.find(t=>t.name===name);
+  if (!m) return;
+  document.getElementById('member-avatar').textContent = m.initials;
+  document.getElementById('member-name').textContent = m.name;
+  document.getElementById('member-role-text').textContent = m.role;
+  const memberTasks = tasks.filter(t=>t.person===name);
+  const el = document.getElementById('member-tasks');
+  if (!memberTasks.length) {
+    el.innerHTML = empty('Bu kişiye atanmış görev yok');
+  } else {
+    el.innerHTML = memberTasks.map(t=>taskHTML(t)).join('');
+  }
+  openModal('member-modal');
 }
 
 async function addTeamMember() {
@@ -1691,6 +1837,27 @@ function openModal(id) {
     const sel=document.getElementById('admin-pw-user');
     sel.innerHTML=team.filter(m=>m.name!==currentUser.name).map(m=>`<option value="${m.name.toLowerCase().replace(/\s/g,'').replace(/[çÇ]/g,'c').replace(/[şŞ]/g,'s').replace(/[ğĞ]/g,'g').replace(/[üÜ]/g,'u').replace(/[öÖ]/g,'o').replace(/[ıİ]/g,'i')}">${m.name} (${m.role})</option>`).join('');
   }
+  if(id==='meeting-modal'){
+    // Katılımcı checkboxları
+    const el=document.getElementById('m-participants');
+    el.innerHTML=team.map(m=>`
+      <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;padding:4px 8px;border-radius:6px;background:var(--surface);border:1px solid var(--border)">
+        <input type="checkbox" value="${m.name}" style="accent-color:var(--accent)">
+        <span>${m.name}</span>
+      </label>`).join('');
+  }
+  if(id==='task-modal'){
+    // Staff kendi adını görür, yönetici herkesi
+    const personRow = document.getElementById('t-person')?.closest('.form-group')?.parentElement;
+    const personSel = document.getElementById('t-person');
+    if(personSel){
+      if(!isManager()){
+        personSel.closest('.form-group').style.display='none';
+      } else {
+        personSel.closest('.form-group').style.display='';
+      }
+    }
+  }
   document.getElementById(id).classList.add('open');
 }
 
@@ -1707,6 +1874,28 @@ function populatePersonSelects() {
   });
 }
 
+// ══ REALTIME — Her 5 saniyede mesajları yenile ══
+function startRealtimeMessages() {
+  setInterval(async () => {
+    const msgs = await DB.get('mesajlar', '?order=created_at.asc');
+    if (!msgs) return;
+
+    // Mesajları yeniden grupla
+    Object.keys(msgData).forEach(name => msgData[name].messages = []);
+    msgs.forEach(msg => {
+      const other = msg.from_user === currentUser.name ? msg.to_user : msg.from_user;
+      if (msgData[other]) {
+        msgData[other].messages.push({
+          from: msg.from_user === currentUser.name ? 'me' : 'them',
+          text: msg.message,
+          time: msg.time
+        });
+      }
+    });
+    renderChat();
+    renderMessages();
+  }, 5000);
+}
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');}
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');}
 function fmtDate(d){if(!d)return'—';return new Date(d+'T12:00').toLocaleDateString('tr-TR',{day:'numeric',month:'short',year:'numeric'});}
@@ -1717,6 +1906,5 @@ window.onload=function(){
   document.getElementById('today-date').textContent=new Date().toLocaleDateString('tr-TR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 };
 </script>
-
-
-</body></html>
+</body>
+</html>
